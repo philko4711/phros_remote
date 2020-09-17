@@ -11,10 +11,10 @@
 #include "mappers/MapperDriveReverse.h"
 #include "mappers/MapperHud.h"
 #include "mappers/MapperArm.h"
-#include "mappers/Ps3Profiles.h"
+#include "mappers/PsProfiles.h"
 #include "gui/Hud.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 std::shared_ptr<MapperController> MapperController::_instance(nullptr);

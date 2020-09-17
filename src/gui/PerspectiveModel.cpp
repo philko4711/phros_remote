@@ -9,7 +9,7 @@
 #include <iostream>
 #include <QtCore/QDebug>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 PerspectiveModel::PerspectiveModel(const double width, const double widthY, const double height, const double flipWidth, const double flipHeight, double flipEdget):

@@ -135,7 +135,8 @@ SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/Communication.cpp
 				src/gui/Hud.cpp
 				src/gui/PerspectiveModel.cpp
-				src/utils/SuperImageSubscriber.cpp
+        src/utils/SuperImageSubscriber.cpp
+        src/utils/MapperPs4Pad.cpp
 				src/MapperController.cpp
 				src/mappers/MapperBase.cpp
 				src/mappers/MapperArm.cpp

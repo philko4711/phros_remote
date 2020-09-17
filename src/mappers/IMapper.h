@@ -11,7 +11,7 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class IMapper

@@ -13,7 +13,7 @@
 #include <memory>
 #include <sensor_msgs/Image.h>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class SuperImageSubscriber

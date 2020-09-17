@@ -23,7 +23,7 @@ namespace
 //  const Eigen::Translation<double, 3> t_FRR(-1.4, -1.8, 0.25);
 }
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 

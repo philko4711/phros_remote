@@ -10,14 +10,14 @@
 #include "Hud.h"
 
 #include "ohm_teleop_msgs/ArmCommand.h"
-#include "Ps3Profiles.h"
+#include "PsProfiles.h"
 
 #include <string>
 
 #include "Hud.h"
 #include "Communication.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MapperArm::MapperArm(ros::NodeHandle& nh):

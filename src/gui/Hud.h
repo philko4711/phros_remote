@@ -17,7 +17,7 @@
 #include "ohm_schroedi_mc/mc_ret.h"
 #include "ohm_power_unit/pu.h"
 //#include "ohm_teleop_msgs/RemoteProfile.h"
-#include "mappers/Ps3Profiles.h"
+#include "mappers/PsProfiles.h"
 #include "mappers/IMapper.h"
 //#include "ohm_actors_msgs/DriveState.h"
 #include <vector>
@@ -25,7 +25,7 @@
 #endif
 
 
-namespace ohm_remote
+namespace phros_remote
 {
 namespace
 {

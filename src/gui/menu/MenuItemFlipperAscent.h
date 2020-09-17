@@ -12,7 +12,7 @@
 
 #include <QtCore/QString>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MenuItemFlipperAscent : public MenuItemBase

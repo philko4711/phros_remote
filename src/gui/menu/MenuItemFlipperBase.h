@@ -10,7 +10,7 @@
 
 #include "MenuItemBase.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MenuItemFlipperBase: public MenuItemBase

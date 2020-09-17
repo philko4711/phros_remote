@@ -11,7 +11,7 @@
 #include "Communication.h"
 #include <QtCore/QDebug>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemFlipperAscent::MenuItemFlipperAscent(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):

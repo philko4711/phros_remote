@@ -14,7 +14,7 @@
 #include <ros/ros.h>
 #include "MapperController.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class RemotePlugin : public rqt_gui_cpp::Plugin

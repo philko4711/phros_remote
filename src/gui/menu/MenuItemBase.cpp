@@ -8,7 +8,7 @@
 #include "MenuItemBase.h"
 #include <iostream>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemBase::MenuItemBase(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):

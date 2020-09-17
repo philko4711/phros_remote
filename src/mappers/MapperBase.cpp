@@ -6,14 +6,16 @@
  */
 
 #include "MapperBase.h"
+#include "utils/MapperPs4Pad.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MapperBase::MapperBase():
     _reset(true)
 {
-  // TODO Auto-generated constructor stub
+  // TODO add config from launch for gamepad type
+  _mapperPsPad = std::make_unique<MapperPs4Pad>();
 
 }
 

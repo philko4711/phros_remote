@@ -10,7 +10,7 @@
 
 #include <ros/ros.h>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 template<typename T>

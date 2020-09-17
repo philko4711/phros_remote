@@ -16,7 +16,7 @@
 #include "PerspectiveModel.h"
 #include <memory>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class Hud;

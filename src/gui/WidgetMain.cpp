@@ -10,7 +10,7 @@
 #include <QtCore/QDebug>
 #include <ros/ros.h>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 WidgetMain::WidgetMain(QWidget *parent) : QWidget(parent),

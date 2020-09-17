@@ -10,7 +10,7 @@
 
 #include "MapperBase.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MapperDriveReverse: public MapperBase

@@ -12,7 +12,7 @@
 
 #include "gui/Hud.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MenuItemModeDriveReverse: public MenuItemBase

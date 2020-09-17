@@ -12,7 +12,7 @@
 
 #include <ros/ros.h>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MapperDrive: public MapperBase

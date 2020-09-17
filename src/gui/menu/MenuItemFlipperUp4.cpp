@@ -11,7 +11,7 @@
 #include "MapperController.h"
 #include <QtCore/QDebug>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemFlipperUp4::MenuItemFlipperUp4(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):

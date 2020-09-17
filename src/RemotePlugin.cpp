@@ -13,7 +13,7 @@
 #include "gui/Hud.h"
 
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 static double _threshSwitchDir = 0.25;
@@ -110,4 +110,4 @@ void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
 }
 
 } /* namespace ohm_rqt */
-PLUGINLIB_EXPORT_CLASS(ohm_remote::RemotePlugin, rqt_gui_cpp::Plugin)
+PLUGINLIB_EXPORT_CLASS(phros_remote::RemotePlugin, rqt_gui_cpp::Plugin)

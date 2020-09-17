@@ -21,7 +21,7 @@
 #include "ohm_teleop_msgs/FlipperAngle.h"
 #include "ohm_actors_msgs/SensorHeadJoy.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class Communication

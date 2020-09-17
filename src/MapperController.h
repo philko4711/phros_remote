@@ -12,7 +12,7 @@
 #include "mappers/IMapper.h"
 #include <memory>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MapperController

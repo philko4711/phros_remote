@@ -10,8 +10,10 @@
 
 #include "IMapper.h"
 #include <sensor_msgs/Joy.h>
+#include "utils/MapperPsPad.h"
+#include <memory>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MapperBase: public IMapper
@@ -24,6 +26,7 @@ public:
 protected:
   sensor_msgs::Joy _last;
   bool _reset;
+  std::unique_ptr<MapperPsPad> _mapperPsPad;
 };
 
 } /* namespace ohm_remote */

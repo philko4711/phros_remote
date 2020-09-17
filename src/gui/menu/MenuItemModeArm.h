@@ -14,7 +14,7 @@
 
 #include <QtCore/QString>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MenuItemModeArm: public MenuItemBase

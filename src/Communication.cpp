@@ -9,7 +9,7 @@
 #include <iostream>
 #include "ohm_actors_msgs/SetHomingSensHead.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 std::shared_ptr<Communication> Communication::_instance(nullptr);

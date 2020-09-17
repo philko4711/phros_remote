@@ -20,7 +20,7 @@
 //#include "PerspectiveModel.h"
 
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 std::shared_ptr<Hud> Hud::_instance(nullptr);

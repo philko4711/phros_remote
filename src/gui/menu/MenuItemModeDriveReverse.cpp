@@ -8,7 +8,7 @@
 #include "MenuItemModeDriveReverse.h"
 #include "MapperController.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemModeDriveReverse::MenuItemModeDriveReverse(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):
@@ -27,7 +27,7 @@ bool MenuItemModeDriveReverse::action(void)
 {
   MenuItemBase::displayActionTriggered(true);
   auto mapperController = MapperController::getInstance();
-  const bool retval = mapperController->switchMapper(ohm_remote::IMapper::RemoteType::DRIVE_REV);
+  const bool retval = mapperController->switchMapper(phros_remote::IMapper::RemoteType::DRIVE_REV);
   MenuItemBase::displayActionTriggered(!retval);
   return retval;
 }

@@ -16,11 +16,11 @@
 #include <geometry_msgs/Twist.h>
 
 #include <string>
-#include "Ps3Profiles.h"
+#include "PsProfiles.h"
 
 
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 static double _threshSwitchDir = 0.25;

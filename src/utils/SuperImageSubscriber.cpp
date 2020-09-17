@@ -7,7 +7,7 @@
 
 #include "SuperImageSubscriber.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 SuperImageSubscriber::SuperImageSubscriber(const std::string& topic, const ros::Duration& timeout):

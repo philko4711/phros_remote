@@ -11,7 +11,7 @@
 #include "IMenuItem.h"
 #include "gui/Hud.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MenuItemBase: public IMenuItem

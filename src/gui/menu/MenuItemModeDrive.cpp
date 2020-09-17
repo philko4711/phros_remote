@@ -9,7 +9,7 @@
 #include <QtCore/QDebug>
 #include "MapperController.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemModeDrive::MenuItemModeDrive(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):
@@ -27,7 +27,7 @@ bool MenuItemModeDrive::action(void)
 {
   MenuItemBase::displayActionTriggered(true);
   auto mapperController = MapperController::getInstance();
-  const bool retval = mapperController->switchMapper(ohm_remote::IMapper::RemoteType::DRIVE);
+  const bool retval = mapperController->switchMapper(phros_remote::IMapper::RemoteType::DRIVE);
   MenuItemBase::displayActionTriggered(!retval);
   return retval;
 }

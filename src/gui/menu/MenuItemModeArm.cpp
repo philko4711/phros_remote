@@ -10,7 +10,7 @@
 
 #include <QtCore/QDebug>
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemModeArm::MenuItemModeArm(const QString& pathToPic, IMenuItem* prev, IMenuItem* next):
@@ -28,7 +28,7 @@ bool MenuItemModeArm::action(void)
 {
   MenuItemBase::displayActionTriggered(true);
   auto mapperController = MapperController::getInstance();
-  const bool retval = mapperController->switchMapper(ohm_remote::IMapper::RemoteType::ARM);
+  const bool retval = mapperController->switchMapper(phros_remote::IMapper::RemoteType::ARM);
   MenuItemBase::displayActionTriggered(!retval);
   return retval;
 }

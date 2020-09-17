@@ -9,7 +9,7 @@
 #include "Hud.h"
 #include "MapperController.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MapperHud::MapperHud(void)

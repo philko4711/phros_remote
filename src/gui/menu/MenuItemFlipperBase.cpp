@@ -7,7 +7,7 @@
 
 #include "MenuItemFlipperBase.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 MenuItemFlipperBase::MenuItemFlipperBase(const QString& pathToPic, IMenuItem* prev, IMenuItem* next)

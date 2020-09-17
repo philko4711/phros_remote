@@ -9,9 +9,9 @@
 #define OHM_SCHR_REMOTE_SRC_MAPPERS_MAPPERHUD_H_
 
 #include "MapperBase.h"
-#include "mappers/Ps3Profiles.h"
+#include "mappers/PsProfiles.h"
 
-namespace ohm_remote
+namespace phros_remote
 {
 
 class MapperHud: public MapperBase
