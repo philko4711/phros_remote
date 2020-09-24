@@ -65,20 +65,21 @@ MapperDriveReverse::~MapperDriveReverse()
   // TODO Auto-generated destructor stub
 }
 
-void MapperDriveReverse::map(const sensor_msgs::Joy& joy)
+void MapperDriveReverse::map(const std::shared_ptr<MapperPsPad>& msg)
 {
   auto hud = Hud::getInstance();
   hud->setArmActive(false);
   if(_reset)
   {
-    _last = joy;
+    *_last = *msg;
     // this->emptyLast();
     _reset = false;
     return;
   }
 
   //static sensor_msgs::Joy last = joy;
-  if(joy.buttons[B_PS] && !_last.buttons[B_PS])
+  //if(joy.buttons[B_PS] && !_last.buttons[B_PS])
+  if(msg->buttonPressedPS() && !_last->buttonPressedPS())
   {
     MapperController::getInstance()->switchMapper(IMapper::RemoteType::HUD);
     return;
@@ -95,13 +96,18 @@ void MapperDriveReverse::map(const sensor_msgs::Joy& joy)
     sensorHead.home = false;
   geometry_msgs::Twist twist;
 
-  twist.linear.x =  -0.5 * (joy.axes[L2] - joy.axes[R2]) * _threshSpeedLinear;   //axes switched for reverse
+  twist.linear.x =  -0.5 * (msg->L2() - msg->R2()) * _threshSpeedLinear;
+  //twist.linear.x =  -0.5 * (joy.axes[L2] - joy.axes[R2]) * _threshSpeedLinear;   //axes switched for reverse
 
-  twist.angular.z =  joy.axes[A1_X];
+  twist.angular.z =  msg->stickLeftX();
+  //twist.angular.z =  joy.axes[A1_X];
   //map sensor head
-  sensorHead.pitch = joy.axes[A2_Y] * _threshSpeedSensorHead;
-  sensorHead.yaw   = -joy.axes[A2_X] * _threshSpeedSensorHead;   //axis sign switched for reverse mode
-  if(joy.buttons[B_A2])
+  sensorHead.pitch = msg->stickRightY() * _threshSpeedSensorHead;
+  sensorHead.yaw   = -msg->stickRightX() * _threshSpeedSensorHead;
+  // sensorHead.pitch = joy.axes[A2_Y] * _threshSpeedSensorHead;
+  // sensorHead.yaw   = -joy.axes[A2_X] * _threshSpeedSensorHead;   //axis sign switched for reverse mode
+  if(msg->buttonPressedA1())
+  //if(joy.buttons[B_A2])
     sensorHead.home = true;
 
 
@@ -109,18 +115,24 @@ void MapperDriveReverse::map(const sensor_msgs::Joy& joy)
   ohm_teleop_msgs::FlipperAngle flippers;
 
   double vz = 0.0;
-  if(joy.buttons[B_UP])
+  //if(joy.buttons[B_UP])
+  if(msg->crossUp())
     vz = -1.0;
-  else if(joy.buttons[B_DOWN])
+  //else if(joy.buttons[B_DOWN])
+  else if(msg->crossDown())
     vz = 1.0;
   //read select button
-  if(joy.buttons[B_T])
+  //if(joy.buttons[B_T])
+  if(msg->buttonPressedT())
     flippers.back_left  = _speedFlipperManual * vz;
-  if(joy.buttons[B_C])
+  //if(joy.buttons[B_C])
+  if(msg->buttonPressedC())
     flippers.back_right = _speedFlipperManual * vz;
-  if(joy.buttons[B_S])
+  //if(joy.buttons[B_S])
+  if(msg->buttonPressedS())
     flippers.front_left   = -1.0 * _speedFlipperManual * vz;
-  if(joy.buttons[B_X])
+  //if(joy.buttons[B_X])
+  if(msg->buttonPressedX())
     flippers.front_right  = -1.0 * _speedFlipperManual * vz;
 
   auto comm = Communication::getInstance();
@@ -132,7 +144,8 @@ void MapperDriveReverse::map(const sensor_msgs::Joy& joy)
  //static bool switched = false;
  static ros::Time timerSwitch = ros::Time::now();
  auto mapCtrl = MapperController::getInstance();
- if(joy.buttons[B_L1] && joy.buttons[B_R1])
+ if(msg->buttonPressedL1() && msg->buttonPressedR1())
+ //if(joy.buttons[B_L1] && joy.buttons[B_R1])
  {
    const double timePressed = (ros::Time::now() - timerSwitch).toSec();
    std::cout << __PRETTY_FUNCTION__ << " buttons pressed since " << timePressed << " > " << _threshSwitchDir << std::endl;
@@ -153,7 +166,7 @@ void MapperDriveReverse::map(const sensor_msgs::Joy& joy)
    _switched = false;
  }
 
-  _last = joy;
+  *_last = *msg;
 
 }
 

@@ -45,7 +45,7 @@ WidgetMain::~WidgetMain()
 
 void WidgetMain::paintEvent(QPaintEvent *event)
 {
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+//  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   QPainter painter(this);
   if (!_imageMain->size().isEmpty())
   {
@@ -192,7 +192,7 @@ void WidgetMain::paintEvent(QPaintEvent *event)
   }
 
   painter.restore();
-  std::cout << __PRETTY_FUNCTION__ << " exit" << std::endl;
+ // std::cout << __PRETTY_FUNCTION__ << " exit" << std::endl;
 }
 
 // void WidgetMain::setIconMode(QImage& icon)
@@ -206,7 +206,7 @@ void WidgetMain::paintEvent(QPaintEvent *event)
 
 void WidgetMain::drawEnergyBar(const float &energy, const float &energyMax, const QRect &boundingRect, QPainter &painter, const BarColors colors, const QString &label, const AlarmLevels &alarm)
 {
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   QPen pen(Qt::SolidLine);
   float fac = 0.0;
   if (!std::isnan(energy))

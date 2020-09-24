@@ -30,6 +30,8 @@ void MapperPs4Pad::map(const sensor_msgs::Joy &joy) {
   _stickLeftY = joy.axes[static_cast<unsigned int>(AxesPs4::A1_Y)];
   _stickRightX = joy.axes[static_cast<unsigned int>(AxesPs4::A2_X)];
   _stickRightY = joy.axes[static_cast<unsigned int>(AxesPs4::A2_Y)];
+  _L2 = joy.axes[static_cast<unsigned int>(AxesPs4::L2)];
+  _R2 = joy.axes[static_cast<unsigned int>(AxesPs4::R2)];
 }
 
 } // namespace phros_remote

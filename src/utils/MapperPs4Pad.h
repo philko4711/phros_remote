@@ -9,7 +9,7 @@ namespace phros_remote
 
 namespace
 {
-  const float AXE_MAX = 1.0f;
+  const float AXE_MAX = 0.99f;
 }
 
 class MapperPs4Pad : public MapperPsPad {

@@ -9,7 +9,7 @@
 #define OHM_SCHR_REMOTE_SRC_MAPPERS_IMAPPER_H_
 
 #include <ros/ros.h>
-#include <sensor_msgs/Joy.h>
+#include "utils/MapperPsPad.h"
 
 namespace phros_remote
 {
@@ -26,7 +26,7 @@ public:
   };
   IMapper(){}
   virtual ~IMapper(){}
-  virtual void map(const sensor_msgs::Joy& msg) = 0;
+  virtual void map(const std::shared_ptr<MapperPsPad>& msg) = 0;
   virtual const RemoteType type(void)const = 0;
   virtual void setReset(void) = 0;
   virtual void mapImage(void) = 0;

@@ -19,7 +19,7 @@ class MapperHud: public MapperBase
 public:
   MapperHud(void);
   virtual ~MapperHud();
-  virtual void map(const sensor_msgs::Joy& msg);
+  virtual void map(const std::shared_ptr<MapperPsPad>& msg);
   virtual const RemoteType type(void)const{return IMapper::RemoteType::HUD;}
   virtual void mapImage(void){}
   virtual void init(void){}

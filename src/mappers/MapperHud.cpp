@@ -24,12 +24,12 @@ MapperHud::~MapperHud()
 }
 
 
-void MapperHud::map(const sensor_msgs::Joy& msg)
+void MapperHud::map(const std::shared_ptr<MapperPsPad>& msg)
 {
   if(_reset)
   {
     std::cout << __PRETTY_FUNCTION__ << "reset" << std::endl;
-    _last = msg;
+    *_last = *msg;
     //this->emptyLast();
     _reset = false;
     return;
@@ -47,39 +47,45 @@ void MapperHud::map(const sensor_msgs::Joy& msg)
   //    std::cout << __PRETTY_FUNCTION__ << " rising edge ps" << std::endl;
   //    _hud.buttonPressed(B_PS);
   //  }
-  if(msg.buttons[B_LEFT] && !_last.buttons[B_LEFT])
+  if(msg->crossLeft() && !_last->crossLeft())
+  //if(msg.buttons[B_LEFT] && !_last.buttons[B_LEFT])
   {
     //std::cout << __PRETTY_FUNCTION__ << " left " << std::endl;
     hud->menuLeft();
 
   }
-  else if(msg.buttons[B_RIGHT] && !_last.buttons[B_RIGHT])
+  else if(msg->crossRight() && !_last->crossRight())
+  //else if(msg.buttons[B_RIGHT] && !_last.buttons[B_RIGHT])
   {
     //std::cout << __PRETTY_FUNCTION__ << " right " << std::endl;
     hud->menuRight();
   }
-  else if(msg.buttons[B_SELECT] && !_last.buttons[B_SELECT])
+  else if(msg->buttonPressedSL() && !_last->buttonPressedSL())
+  //else if(msg.buttons[B_SELECT] && !_last.buttons[B_SELECT])
   {
     const bool retval = hud->activateIcon();
     hud->displayActionTriggered(!retval);
   }
-  else if(msg.buttons[B_PS] && !_last.buttons[B_PS])
+  else if(msg->buttonPressedPS() && !_last->buttonPressedPS())
+  //else if(msg.buttons[B_PS] && !_last.buttons[B_PS])
   {
     MapperController::getInstance()->switchMapper();
   return;
   }
-  else if(msg.buttons[B_UP] && !_last.buttons[B_UP])
+  else if(msg->crossUp() && !_last->crossUp())
+//  else if(msg.buttons[B_UP] && !_last.buttons[B_UP])
   {
     std::cout << __PRETTY_FUNCTION__ << "up pressed" << std::endl;
     hud->menuUp();
   }
-  else if(msg.buttons[B_DOWN] && !_last.buttons[B_DOWN])
+  else if(msg->crossDown() && !_last->crossDown())
+  //else if(msg.buttons[B_DOWN] && !_last.buttons[B_DOWN])
     {
     std::cout << __PRETTY_FUNCTION__ << "down pressed" << std::endl;
       hud->menuDown();
     }
 
-  _last = msg;
+  *_last = *msg;
 }
 
 //void MapperHud::reset(void)

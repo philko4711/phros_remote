@@ -35,6 +35,8 @@ public:
   const float  stickLeftY(void) const { return _stickLeftY; }
   const float  stickRightX(void) const { return _stickRightX; }
   const float  stickRightY(void) const { return _stickRightY; }
+  const float  L2(void) const { return _L2; }
+  const float  R2(void) const { return _R2; }
 
 protected:
   bool  _buttonPressedX  = false;
@@ -58,7 +60,9 @@ protected:
   float _stickLeftY      = 0.0f;
   float _stickRightX     = 0.0f;
   float _stickRightY     = 0.0f;
+  float _L2              = 0.0f;
+  float _R2              = 0.0f;
 };
 
-} // namespace phros_remotes
+} // namespace phros_remote
 #endif

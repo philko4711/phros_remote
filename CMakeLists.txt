@@ -233,6 +233,6 @@ qt5_wrap_ui(UI_HEADER_REMOTE ${UIS_REMOTE})
 #add_executable(pupublisher_node src/health/simulator.cpp)
 #target_link_libraries(pupublisher_node ${catkin_LIBRARIES})
 
-add_library(remote ${SRCS_REMOTE} ${MOCS_SRCS_REMOTE} ${UI_HEADER_REMOTE})
-target_link_libraries(remote ${catkin_LIBRARIES} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+add_library(phros_remote ${SRCS_REMOTE} ${MOCS_SRCS_REMOTE} ${UI_HEADER_REMOTE})
+target_link_libraries(phros_remote ${catkin_LIBRARIES} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
 

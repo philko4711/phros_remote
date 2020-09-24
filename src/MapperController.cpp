@@ -13,6 +13,7 @@
 #include "mappers/MapperArm.h"
 #include "mappers/PsProfiles.h"
 #include "gui/Hud.h"
+#include "utils/MapperPs4Pad.h"
 
 namespace phros_remote
 {
@@ -92,7 +93,9 @@ void MapperController::map(const sensor_msgs::Joy& joy)
 //      _mapper = lastMapper;
 //    }
 //  }
-  _mapper->map(joy);
+  static std::shared_ptr<MapperPsPad> psPad = std::make_shared<MapperPs4Pad>();
+  psPad->map(joy);
+  _mapper->map(psPad);
   //lastJoy = joy;
 }
 

@@ -59,7 +59,7 @@ void RemotePlugin::restoreSettings(const qt_gui_cpp::Settings& plugin_settings, 
 void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
 {
  // ros::spinOnce();
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   auto comm = Communication::getInstance();
   auto mapper = MapperController::getInstance();
   auto joyMsg = comm->joyData();
@@ -72,7 +72,7 @@ void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
   if(joyMsg)
   {
     if(!initialized)
-     if((joyMsg->axes[R2] > 0.7 && joyMsg->axes[L2] > 0.7) && !initialized)  //apparently the ps3 pad needs to be initialized...both accelerators pressed
+     if((joyMsg->axes[R2] > 0.7 && joyMsg->axes[L2] > 0.7) && !initialized)  //TODO: move into the pspad class
     {
       ROS_INFO("Joy Node: Initializing...");
       usleep(1000 * 1000);
@@ -106,7 +106,7 @@ void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
   comm->republishImages();
 
   hud->update();
-  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
 } /* namespace ohm_rqt */

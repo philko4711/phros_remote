@@ -15,7 +15,7 @@ MapperBase::MapperBase():
     _reset(true)
 {
   // TODO add config from launch for gamepad type
-  _mapperPsPad = std::make_unique<MapperPs4Pad>();
+  _last = std::make_unique<MapperPs4Pad>();  //TODO: we need a global config so this can be configured
 
 }
 

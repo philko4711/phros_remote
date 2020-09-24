@@ -70,20 +70,20 @@ MapperDrive::~MapperDrive()
   // TODO Auto-generated destructor stub
 }
 
-void MapperDrive::map(const sensor_msgs::Joy& joy)
+void MapperDrive::map(const std::shared_ptr<MapperPsPad>& msg)
 {
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   auto hud = Hud::getInstance();
   hud->setArmActive(false);
   if(_reset)
   {
-    _last = joy;
+    *_last = *msg;
     //this->emptyLast();
     _reset = false;
     return;
   }
   //static sensor_msgs::Joy last = joy;
-  if(joy.buttons[B_PS] && !_last.buttons[B_PS])
+  if(msg->buttonPressedPS() && !_last->buttonPressedPS())
   {
     MapperController::getInstance()->switchMapper(IMapper::RemoteType::HUD);
     return;
@@ -100,31 +100,41 @@ void MapperDrive::map(const sensor_msgs::Joy& joy)
   else
     sensorHead.home = false;
   geometry_msgs::Twist twist;
-  twist.linear.x =  -0.5 * (joy.axes[R2] - joy.axes[L2]) * _threshSpeedLinear;
+  //twist.linear.x =  -0.5 * (joy.axes[R2] - joy.axes[L2]) * _threshSpeedLinear;
+  twist.linear.x =  -0.5 * (msg->R2() - msg->L2()) * _threshSpeedLinear;
 
-  twist.angular.z =  joy.axes[A1_X];
+  twist.angular.z =  msg->stickLeftX();
   //map sensor head
 
-  sensorHead.pitch = joy.axes[A2_Y] * _threshSpeedSensorHead;
-  sensorHead.yaw   = joy.axes[A2_X] * _threshSpeedSensorHead;
-  if(joy.buttons[B_A2])
+  // sensorHead.pitch = joy.axes[A2_Y] * _threshSpeedSensorHead;
+  // sensorHead.yaw   = joy.axes[A2_X] * _threshSpeedSensorHead;
+  sensorHead.pitch = msg->stickRightY() * _threshSpeedSensorHead;
+  sensorHead.yaw   = msg->stickRightX() * _threshSpeedSensorHead;
+  //if(joy.buttons[B_A2])
+  if(msg->buttonPressedA1())
     sensorHead.home = true;
   //map flippers
   ohm_teleop_msgs::FlipperAngle flippers;
 
   double vz = 0.0;
-  if(joy.buttons[B_UP])
+  //if(joy.buttons[B_UP])
+  if(msg->crossUp())
     vz = 1.0;
-  else if(joy.buttons[B_DOWN])
+  //else if(joy.buttons[B_DOWN])
+  else if(msg->crossDown())
     vz = -1.0;
   //read select button
-  if(joy.buttons[B_T])
+  //if(joy.buttons[B_T])
+  if(msg->buttonPressedT())
     flippers.front_left  = -1.0 * _speedFlipperManual * vz;
-  if(joy.buttons[B_C])
+  //if(joy.buttons[B_C])
+  if(msg->buttonPressedC())
     flippers.front_right =  -1.0 * _speedFlipperManual * vz;
-  if(joy.buttons[B_S])
+  //if(joy.buttons[B_S])
+  if(msg->buttonPressedS())
     flippers.back_left   = _speedFlipperManual * vz;
-  if(joy.buttons[B_X])
+  //if(joy.buttons[B_X])
+  if(msg->buttonPressedX())
     flippers.back_right  = _speedFlipperManual * vz;
 
 //  _pubTwist.publish(twist);
@@ -147,7 +157,8 @@ void MapperDrive::map(const sensor_msgs::Joy& joy)
  //static bool switched = false;
  static ros::Time timerSwitch = ros::Time::now();
  auto mapCtrl = MapperController::getInstance();
- if(joy.buttons[B_L1] && joy.buttons[B_R1])
+ //if(joy.buttons[B_L1] && joy.buttons[B_R1])
+ if(msg->buttonPressedL1() && msg->buttonPressedR1())
  {
    const double timePressed = (ros::Time::now() - timerSwitch).toSec();
    std::cout << __PRETTY_FUNCTION__ << " buttons pressed since " << timePressed << " > " << _threshSwitchDir <<std::endl;
@@ -169,13 +180,13 @@ void MapperDrive::map(const sensor_msgs::Joy& joy)
    _switched = false;
  }
 
-  _last = joy;
-  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+  *_last = *msg;
+ // std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
 void MapperDrive::mapImage(void)
 {
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+ // std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   auto hud = Hud::getInstance();
   auto comm = Communication::getInstance();
   auto imageMain = comm->imageMain();
@@ -185,18 +196,18 @@ void MapperDrive::mapImage(void)
      hud->update();
   }
   else
-    std::cout << __PRETTY_FUNCTION__ << "no image received" << std::endl;
-  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+    ROS_ERROR_STREAM_THROTTLE(1.0, __PRETTY_FUNCTION__ << " no image received");
+ // std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
 void MapperDrive::init(void)
 {
-  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   auto comm = Communication::getInstance();
   comm->setHoming(_homingPitchFor, _homingYawFor);
-  _homingIters = 50;
+  _homingIters = 50;  //TODO: this is so very dumb. Add a homing service to sensor head and call it from here
   
-  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+//  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
 }

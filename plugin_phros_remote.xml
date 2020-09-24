@@ -1,4 +1,4 @@
-<library path="lib/libremote">
+<library path="lib/libphros_remote">
   <class name="RemotePlugin" type="phros_remote::RemotePlugin" base_class_type="rqt_gui_cpp::Plugin">
     <description>
       
@@ -12,7 +12,7 @@
         <label>Subgroup</label>
       </group>
       -->
-      <label>Remote</label>
+      <label>Phros Remote</label>
       <icon type="theme">display-capplet</icon>
       <statustip>Great user interface to provide real value.</statustip>
     </qtgui>
