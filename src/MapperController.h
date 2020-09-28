@@ -14,13 +14,13 @@
 
 namespace phros_remote
 {
-
+class MapperPsPad;
 class MapperController
 {
 public:
   static std::shared_ptr<MapperController> getInstance(void);
   virtual ~MapperController();
-  void map(const sensor_msgs::Joy& joy);
+  void map(std::shared_ptr<MapperPsPad>& msg);
   void mapImage(void){_mapper->mapImage();}
   bool switchMapper(const IMapper::RemoteType& type, const bool switched = false);
   bool switchMapper(void);

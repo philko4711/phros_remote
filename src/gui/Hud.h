@@ -51,7 +51,7 @@ public:
   static std::shared_ptr<Hud> getInstance(void);
   virtual ~Hud();
   void initMenu(const bool serviceFlipperPresent, const bool serviceHornsPresent);
-  void buttonPressed(const Buttons_ps3_sixad& button);
+  void buttonPressed(const ButtonsPs3& button);
   void menuLeft(void) ;//{_menu = &_menu->next();}
   void menuRight(void);//{_menu = &_menu->previous();}
   void menuUp(void);

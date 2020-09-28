@@ -20,7 +20,7 @@ class MapperDrive: public MapperBase
 public:
   MapperDrive(ros::NodeHandle& nh);
   virtual ~MapperDrive();
-  void map(const std::shared_ptr<MapperPsPad>& msg);
+  void map(std::shared_ptr<MapperPsPad>& msg);
   virtual const RemoteType type(void)const{return IMapper::RemoteType::DRIVE;}
   void homing(const unsigned int iters){_homingIters = iters;}
   virtual void mapImage(void);

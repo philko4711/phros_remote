@@ -15,8 +15,9 @@ namespace
 class MapperPs4Pad : public MapperPsPad {
 public:
   MapperPs4Pad() {}
-  virtual ~MapperPs4Pad() {}
+  virtual ~MapperPs4Pad() {std::cout << __PRETTY_FUNCTION__ << " alaaaaarm " << std::endl;}
   virtual void map(const sensor_msgs::Joy &joy);
+  virtual void print();
 private:
   
 };

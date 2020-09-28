@@ -26,7 +26,7 @@ public:
   };
   IMapper(){}
   virtual ~IMapper(){}
-  virtual void map(const std::shared_ptr<MapperPsPad>& msg) = 0;
+  virtual void map(std::shared_ptr<MapperPsPad>& msg) = 0;   //TODO: this argument should be const but the reset method is called in the map method...solution?!
   virtual const RemoteType type(void)const = 0;
   virtual void setReset(void) = 0;
   virtual void mapImage(void) = 0;

@@ -6,13 +6,13 @@
  */
 
 #include "MapperController.h"
+#include "gui/Hud.h"
 #include "mappers/IMapper.h"
+#include "mappers/MapperArm.h"
 #include "mappers/MapperDrive.h"
 #include "mappers/MapperDriveReverse.h"
 #include "mappers/MapperHud.h"
-#include "mappers/MapperArm.h"
 #include "mappers/PsProfiles.h"
-#include "gui/Hud.h"
 #include "utils/MapperPs4Pad.h"
 
 namespace phros_remote
@@ -27,15 +27,15 @@ std::shared_ptr<MapperController> MapperController::getInstance(void)
   return _instance;
 }
 
-MapperController::MapperController(void):
-                                _mappers(4, NULL)
+MapperController::MapperController(void)
+    : _mappers(4, NULL)
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
-  _mappers[static_cast<unsigned int>(IMapper::RemoteType::ARM)]   = std::shared_ptr<MapperArm>(new MapperArm(_nh));
-  _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)] = std::shared_ptr<MapperDrive>(new MapperDrive(_nh));
+  _mappers[static_cast<unsigned int>(IMapper::RemoteType::ARM)]       = std::shared_ptr<MapperArm>(new MapperArm(_nh));
+  _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)]     = std::shared_ptr<MapperDrive>(new MapperDrive(_nh));
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE_REV)] = std::shared_ptr<MapperDriveReverse>(new MapperDriveReverse(_nh));
-  _mappers[static_cast<unsigned int>(IMapper::RemoteType::HUD)] = std::shared_ptr<MapperHud>(new MapperHud());
-  const IMapper::RemoteType typeDrive = IMapper::RemoteType::DRIVE;
+  _mappers[static_cast<unsigned int>(IMapper::RemoteType::HUD)]       = std::shared_ptr<MapperHud>(new MapperHud());
+  const IMapper::RemoteType typeDrive                                 = IMapper::RemoteType::DRIVE;
   //  this->switchMapper(IMapper::RemoteType::DRIVE);
   _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)];
   Hud::getInstance()->setCurrentProfile(IMapper::RemoteType::DRIVE);
@@ -48,60 +48,59 @@ MapperController::~MapperController()
   // TODO Auto-generated destructor stub
 }
 
-void MapperController::map(const sensor_msgs::Joy& joy)
+void MapperController::map(std::shared_ptr<MapperPsPad>& msg)
 {
-//  static ros::Time timerSwitch = ros::Time::now();
-//  static std::shared_ptr<IMapper> lastMapper;
-//  static sensor_msgs::Joy lastJoy = joy;
-//  const double threshSwitchDir = 0.2;
-//  static bool switched = false;
-//  if(_mapper->type() != IMapper::RemoteType::HUD)
-//  {
-//    if(!lastJoy.buttons[B_PS] && joy.buttons[B_PS])
-//    {
-//      std::cout << __PRETTY_FUNCTION__ << " change to hud mapper" << std::endl;
-//      lastMapper = _mapper;
-//      this->switchMapper(IMapper::RemoteType::HUD);
-//    }
-//    if(_mapper->type() != IMapper::RemoteType::ARM)
-//    {
-//      if(joy.buttons[B_L1] && joy.buttons[B_R1])
-//      {
-//        const double timePressed = (ros::Time::now() - timerSwitch).toSec();
-//        if((timePressed > threshSwitchDir) && !switched)
-//        {
-//          if(_mapper->type() == IMapper::RemoteType::DRIVE)
-//            this->switchMapper(IMapper::RemoteType::DRIVE_REV);
-//          else if(_mapper->type() == IMapper::RemoteType::DRIVE_REV)
-//            this->switchMapper(IMapper::RemoteType::DRIVE);
-//          timerSwitch = ros::Time::now();
-//          switched = true;
-//        }
-//      }
-//      else
-//      {
-//        timerSwitch = ros::Time::now();
-//        switched = false;
-//      }
-//    }
-//  }
-//  else
-//  {
-//    if(!lastJoy.buttons[B_PS] && joy.buttons[B_PS])
-//    {
-//      this->switchMapper(lastMapper->type());
-//      _mapper = lastMapper;
-//    }
-//  }
-  static std::shared_ptr<MapperPsPad> psPad = std::make_shared<MapperPs4Pad>();
-  psPad->map(joy);
-  _mapper->map(psPad);
-  //lastJoy = joy;
+  //  static ros::Time timerSwitch = ros::Time::now();
+  //  static std::shared_ptr<IMapper> lastMapper;
+  //  static sensor_msgs::Joy lastJoy = joy;
+  //  const double threshSwitchDir = 0.2;
+  //  static bool switched = false;
+  //  if(_mapper->type() != IMapper::RemoteType::HUD)
+  //  {
+  //    if(!lastJoy.buttons[B_PS] && joy.buttons[B_PS])
+  //    {
+  //      std::cout << __PRETTY_FUNCTION__ << " change to hud mapper" << std::endl;
+  //      lastMapper = _mapper;
+  //      this->switchMapper(IMapper::RemoteType::HUD);
+  //    }
+  //    if(_mapper->type() != IMapper::RemoteType::ARM)
+  //    {
+  //      if(joy.buttons[B_L1] && joy.buttons[B_R1])
+  //      {
+  //        const double timePressed = (ros::Time::now() - timerSwitch).toSec();
+  //        if((timePressed > threshSwitchDir) && !switched)
+  //        {
+  //          if(_mapper->type() == IMapper::RemoteType::DRIVE)
+  //            this->switchMapper(IMapper::RemoteType::DRIVE_REV);
+  //          else if(_mapper->type() == IMapper::RemoteType::DRIVE_REV)
+  //            this->switchMapper(IMapper::RemoteType::DRIVE);
+  //          timerSwitch = ros::Time::now();
+  //          switched = true;
+  //        }
+  //      }
+  //      else
+  //      {
+  //        timerSwitch = ros::Time::now();
+  //        switched = false;
+  //      }
+  //    }
+  //  }
+  //  else
+  //  {
+  //    if(!lastJoy.buttons[B_PS] && joy.buttons[B_PS])
+  //    {
+  //      this->switchMapper(lastMapper->type());
+  //      _mapper = lastMapper;
+  //    }
+  //  }
+
+  _mapper->map(msg);
+  // lastJoy = joy;
 }
 
 bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool switched)
 {
-  //static IMapper::RemoteType last = _mapper->type();
+  // static IMapper::RemoteType last = _mapper->type();
   //  std::cout << __PRETTY_FUNCTION__ << " " << static_cast<unsigned int>(_mapper->type()) << " != "
   //            << static_cast<unsigned int>(type) << std::endl;
   //  if(!restore)//_mapper->type() == IMapper::RemoteType::HUD)
@@ -113,12 +112,11 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     return false;
   }
 
-
-//  if(_last == type)
-//  {
-//    std::cout << __PRETTY_FUNCTION__ << "" << std::endl;
-//    return false;
-//  }
+  //  if(_last == type)
+  //  {
+  //    std::cout << __PRETTY_FUNCTION__ << "" << std::endl;
+  //    return false;
+  //  }
   switch(type)
   {
   case IMapper::RemoteType::DRIVE:
@@ -127,7 +125,7 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     std::cout << __PRETTY_FUNCTION__ << " switch to drive" << std::endl;
     _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)];
     _mapper->init();
-    dynamic_cast<MapperDrive* >(_mapper.get())->setSwitched(switched);
+    dynamic_cast<MapperDrive*>(_mapper.get())->setSwitched(switched);
     break;
   }
   case IMapper::RemoteType::DRIVE_REV:
@@ -136,7 +134,7 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     std::cout << __PRETTY_FUNCTION__ << " switch to drive reverse " << std::endl;
     _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE_REV)];
     _mapper->init();
-    dynamic_cast<MapperDriveReverse* >(_mapper.get())->setSwitched(switched);
+    dynamic_cast<MapperDriveReverse*>(_mapper.get())->setSwitched(switched);
     break;
   }
   case IMapper::RemoteType::ARM:
@@ -152,6 +150,7 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     _last = _mapper->type();
     Hud::getInstance()->showMenu(true);
     _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::HUD)];
+    //_mapper->setReset();
     break;
   }
   default:
@@ -160,7 +159,7 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     return false;
   }
   }
-  _mapper->setReset();
+  _mapper->setReset();  //TODO: this call is not good in the hud mapper...check if we need it every time
   Hud::getInstance()->setCurrentProfile(type);
   return true;
 }
@@ -171,8 +170,8 @@ bool MapperController::switchMapper(void)
   _mapper = _mappers[static_cast<unsigned int>(_last)];
   Hud::getInstance()->showMenu(false);
   Hud::getInstance()->setCurrentProfile(_mapper->type());
-  _mapper->setReset();
+  //_mapper->setReset();
   return true;
 }
 
-} /* namespace ohm_remote */
+} // namespace phros_remote

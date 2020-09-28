@@ -18,7 +18,7 @@ class MapperDriveReverse: public MapperBase
 public:
   MapperDriveReverse(ros::NodeHandle& nh);
   virtual ~MapperDriveReverse();
-  virtual void map(const std::shared_ptr<MapperPsPad>& msg);
+  virtual void map(std::shared_ptr<MapperPsPad>& msg);
   virtual const RemoteType type(void)const{return IMapper::RemoteType::DRIVE_REV;}
   virtual void mapImage(void);
   void homing(const unsigned int iters){_homingIters = iters;}

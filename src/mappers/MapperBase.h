@@ -24,7 +24,7 @@ public:
   void setReset(void){_reset = true;}
   virtual void mapImage(void) = 0;
 protected:
-  std::unique_ptr<MapperPsPad> _last;
+  //std::unique_ptr<MapperPsPad> _last;
   bool _reset;
 };
 

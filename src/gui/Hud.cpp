@@ -142,7 +142,7 @@ void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPres
 //  _parent.setRemoteOverride(false);
 //}
 
-void Hud::buttonPressed(const Buttons_ps3_sixad& button)
+void Hud::buttonPressed(const ButtonsPs3& button)
 {
   //  if(button == B_LEFT)
   //  {

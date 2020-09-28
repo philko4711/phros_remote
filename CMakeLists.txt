@@ -59,76 +59,11 @@ catkin_package(
 ###########
 
 
-## set variables for clock-node
-
-#set(SRCS_CLOCK
-#  src/clock/clock.cpp
-#)
-#set(HDRS_CLOCK
-#  src/clock/clock.h
-#)
-#set(UIS_CLOCK
-#  src/clock/clock.ui
-#)
-
-## set variables for horizon-node
-
-#set(SRCS_HORIZON
-#  src/horizon/horizon.cpp
-#  src/horizon/WidgetHorizon.cpp
-#)
-#set(HDRS_HORIZON
-#  src/horizon/horizon.h
-#  src/horizon/WidgetHorizon.h
-#)
-
-## set variables for horizon2-node
-
-set(SRCS_HORIZON2
-  src/horizon2/horizon2.cpp
-  src/horizon2/WidgetHorizon2.cpp
-)
-set(HDRS_HORIZON2
-  src/horizon2/horizon2.h
-  src/horizon2/WidgetHorizon2.h
-)
-
-## set variables for health-node
-set(SRCS_HEALTH
-  src/health/HealthPlugin.cpp
-)
-set(HDRS_HEALTH
-  src/health/HealthPlugin.h
-)
-set(UIS_HEALTH
-  src/health/health_plugin.ui
-)
-
-## set variables for CO2 node
-set(SRCS_CO2
-  src/co2/CO2Plugin.cpp
-)
-set(HDRS_CO2
-  src/co2/CO2Plugin.h
-)
-set(UIS_CO2
-  src/co2/co2.ui
-)
-
-
-
-## set variables for exploration node
-set(SRCS_EXPLORATION
-  src/exploration/ExplorationPlugin.cpp
-)
-set(HDRS_EXPLORATION
-  src/exploration/ExplorationPlugin.h
-)
-set(UIS_EXPLORATION
-  src/exploration/exploration.ui
-)
-
 SET(UIS_REMOTE src/gui/main.ui)
+
+SET(HDRS_REMOTE src/RemotePlugin.h
+				src/gui/WidgetMain.h
+				src/gui/Hud.h)
 
 SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/gui/WidgetMain.cpp
@@ -137,12 +72,15 @@ SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/gui/PerspectiveModel.cpp
         src/utils/SuperImageSubscriber.cpp
         src/utils/MapperPs4Pad.cpp
+        src/utils/MapperPsPad.cpp
+        src/utils/StateButton.cpp
+        #src/utils/MapperPs3Pad.cpp
 				src/MapperController.cpp
 				src/mappers/MapperBase.cpp
 				src/mappers/MapperArm.cpp
 				src/mappers/MapperDrive.cpp
 				src/mappers/MapperDriveReverse.cpp
-				src/mappers/MapperHud.cpp
+        src/mappers/MapperHud.cpp
 				src/gui/menu/MenuItemBase.cpp
 				src/gui/menu/MenuItemModeArm.cpp
 				src/gui/menu/MenuItemModeDrive.cpp
@@ -151,11 +89,6 @@ SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/gui/menu/MenuItemFlipperFlat.cpp
 				src/gui/menu/MenuItemFlipperUp4.cpp
 				src/gui/icons/qt_res.qrc)
-
-SET(HDRS_REMOTE src/RemotePlugin.h
-				src/gui/WidgetMain.h
-				src/gui/Hud.h)
-
 
 ##########################################################################################
 

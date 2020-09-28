@@ -18,7 +18,7 @@ class MapperArm: public MapperBase
 public:
   MapperArm(ros::NodeHandle& nh);
   virtual ~MapperArm();
-  virtual void map(const std::shared_ptr<MapperPsPad>& msg);
+  virtual void map(std::shared_ptr<MapperPsPad>& msg);
   virtual const RemoteType type(void)const{return IMapper::RemoteType::ARM;}
   virtual void mapImage(void);
   virtual void init(void){}

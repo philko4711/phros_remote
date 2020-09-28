@@ -70,20 +70,22 @@ MapperDrive::~MapperDrive()
   // TODO Auto-generated destructor stub
 }
 
-void MapperDrive::map(const std::shared_ptr<MapperPsPad>& msg)
+void MapperDrive::map(std::shared_ptr<MapperPsPad>& msg)
 {
   //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   auto hud = Hud::getInstance();
   hud->setArmActive(false);
   if(_reset)
   {
-    *_last = *msg;
+    msg->reset();
     //this->emptyLast();
     _reset = false;
     return;
   }
   //static sensor_msgs::Joy last = joy;
-  if(msg->buttonPressedPS() && !_last->buttonPressedPS())
+  //std::cout << __PRETTY_FUNCTION__ << " ps edge " << static_cast<unsigned int>(msg->button(MapperPsPad::ButtonsPad::PS).edge()) << std::endl;
+  if(msg->button(MapperPsPad::ButtonsPad::PS).edge() == StateButton::Edge::RISING)
+  //if(msg->buttonPressedPS() && !_last->buttonPressedPS())
   {
     MapperController::getInstance()->switchMapper(IMapper::RemoteType::HUD);
     return;
@@ -101,40 +103,40 @@ void MapperDrive::map(const std::shared_ptr<MapperPsPad>& msg)
     sensorHead.home = false;
   geometry_msgs::Twist twist;
   //twist.linear.x =  -0.5 * (joy.axes[R2] - joy.axes[L2]) * _threshSpeedLinear;
-  twist.linear.x =  -0.5 * (msg->R2() - msg->L2()) * _threshSpeedLinear;
+  twist.linear.x =  -0.5 * (msg->axis(MapperPsPad::AxesPad::R2) - msg->axis(MapperPsPad::AxesPad::R2)) * _threshSpeedLinear;
 
-  twist.angular.z =  msg->stickLeftX();
+  twist.angular.z =  msg->axis(MapperPsPad::AxesPad::STICK_LEFT_X);//msg->stickLeftX();
   //map sensor head
 
   // sensorHead.pitch = joy.axes[A2_Y] * _threshSpeedSensorHead;
   // sensorHead.yaw   = joy.axes[A2_X] * _threshSpeedSensorHead;
-  sensorHead.pitch = msg->stickRightY() * _threshSpeedSensorHead;
-  sensorHead.yaw   = msg->stickRightX() * _threshSpeedSensorHead;
+  sensorHead.pitch = msg->axis(MapperPsPad::AxesPad::STICK_RIGHT_Y) * _threshSpeedSensorHead;//msg->stickRightY() 
+  sensorHead.yaw   = msg->axis(MapperPsPad::AxesPad::STICK_RIGHT_X) * _threshSpeedSensorHead;// msg->stickRightX() ;
   //if(joy.buttons[B_A2])
-  if(msg->buttonPressedA1())
+  if(msg->button(MapperPsPad::ButtonsPad::A1).state())//PressedA1())
     sensorHead.home = true;
   //map flippers
   ohm_teleop_msgs::FlipperAngle flippers;
 
   double vz = 0.0;
   //if(joy.buttons[B_UP])
-  if(msg->crossUp())
+  if(msg->button(MapperPsPad::ButtonsPad::CROSS_UP).state())//crossUp())
     vz = 1.0;
   //else if(joy.buttons[B_DOWN])
-  else if(msg->crossDown())
+  else if(msg->button(MapperPsPad::ButtonsPad::CROSS_DOWN).state())//msg->crossDown())
     vz = -1.0;
   //read select button
   //if(joy.buttons[B_T])
-  if(msg->buttonPressedT())
+  if(msg->button(MapperPsPad::ButtonsPad::T).state())//  msg->buttonPressedT())
     flippers.front_left  = -1.0 * _speedFlipperManual * vz;
   //if(joy.buttons[B_C])
-  if(msg->buttonPressedC())
+  if(msg->button(MapperPsPad::ButtonsPad::C).state())//(msg->buttonPressedC())
     flippers.front_right =  -1.0 * _speedFlipperManual * vz;
   //if(joy.buttons[B_S])
-  if(msg->buttonPressedS())
+  if(msg->button(MapperPsPad::ButtonsPad::S).state())//(msg->buttonPressedS())
     flippers.back_left   = _speedFlipperManual * vz;
   //if(joy.buttons[B_X])
-  if(msg->buttonPressedX())
+  if(msg->button(MapperPsPad::ButtonsPad::X).state())//(msg->buttonPressedX())
     flippers.back_right  = _speedFlipperManual * vz;
 
 //  _pubTwist.publish(twist);
@@ -158,10 +160,11 @@ void MapperDrive::map(const std::shared_ptr<MapperPsPad>& msg)
  static ros::Time timerSwitch = ros::Time::now();
  auto mapCtrl = MapperController::getInstance();
  //if(joy.buttons[B_L1] && joy.buttons[B_R1])
- if(msg->buttonPressedL1() && msg->buttonPressedR1())
+ if((msg->button(MapperPsPad::ButtonsPad::L1).state()) && (msg->button(MapperPsPad::ButtonsPad::R1).state()))
+ //if(msg->buttonPressedL1() && msg->buttonPressedR1())
  {
    const double timePressed = (ros::Time::now() - timerSwitch).toSec();
-   std::cout << __PRETTY_FUNCTION__ << " buttons pressed since " << timePressed << " > " << _threshSwitchDir <<std::endl;
+   //std::cout << __PRETTY_FUNCTION__ << " buttons pressed since " << timePressed << " > " << _threshSwitchDir <<std::endl;
    if((timePressed > _threshSwitchDir) && !_switched)
    {
      std::cout << __PRETTY_FUNCTION__ << "wanna switch" << std::endl;
@@ -180,8 +183,8 @@ void MapperDrive::map(const std::shared_ptr<MapperPsPad>& msg)
    _switched = false;
  }
 
-  *_last = *msg;
- // std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+  //*_last = *msg;
+  //std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
 void MapperDrive::mapImage(void)

@@ -60,7 +60,7 @@ enum  Buttons_ps3_sixad
   B_PS          //!< PS button
 };
 #else
-enum  Axis_ps3_sixad
+enum  class AxesPs3
 {
   A1_X = 0, //!< x axis of left analog stick
   A1_Y,     //!< y axis of left analog stick
@@ -74,7 +74,7 @@ enum  Axis_ps3_sixad
  *  @enum Buttons_ps3
  *  Buttons of the ps3 controller
  */
-enum  Buttons_ps3_sixad
+enum class ButtonsPs3
 {
   B_X = 0,  //!< SELECT
   B_C,      //!< A1

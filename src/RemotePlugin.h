@@ -16,7 +16,7 @@
 
 namespace phros_remote
 {
-
+class MapperPs4Pad;
 class RemotePlugin : public rqt_gui_cpp::Plugin
 {
   Q_OBJECT
@@ -34,6 +34,7 @@ private:
 
   //ros::Timer _timerMain;
   QTimer _timerMain;
+  std::shared_ptr<MapperPsPad> _psPad;
   //std::unique_ptr<MapperController> _mapper;
 };
 

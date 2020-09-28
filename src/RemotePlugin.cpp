@@ -7,11 +7,11 @@
 
 #include "RemotePlugin.h"
 
-#include <pluginlib/class_list_macros.h>
 #include "Communication.h"
-#include <memory>
 #include "gui/Hud.h"
-
+#include "utils/MapperPs4Pad.h"
+#include <memory>
+#include <pluginlib/class_list_macros.h>
 
 namespace phros_remote
 {
@@ -21,12 +21,11 @@ static double _threshSwitchDir = 0.25;
 RemotePlugin::RemotePlugin()
 {
   // TODO Auto-generated constructor stub
-
 }
 
 RemotePlugin::~RemotePlugin()
 {
-  // TODO Auto-generated destructor stub
+  ROS_ERROR_STREAM(__PRETTY_FUNCTION__ << " alaaaaarm");
 }
 
 void RemotePlugin::initPlugin(qt_gui_cpp::PluginContext& context)
@@ -34,9 +33,11 @@ void RemotePlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   auto hud = Hud::getInstance();
   context.addWidget(hud.get());
   auto comm = Communication::getInstance();
-  //_timerMain = _nh.createTimer(ros::Duration(1.0 / 30.0), &RemotePlugin::callBackTimerMain, this);
- connect(&_timerMain, SIGNAL(timeout(void)), this, SLOT(callBackTimerMain(void)));
- _timerMain.start(20);
+  //_timerMain = _nh.createTimer(ros::Duration(1.0 / 30.0),
+  //&RemotePlugin::callBackTimerMain, this);
+  connect(&_timerMain, SIGNAL(timeout(void)), this, SLOT(callBackTimerMain(void)));
+  _psPad       = std::make_shared<MapperPs4Pad>();
+  _timerMain.start(20);
 }
 
 void RemotePlugin::shutdownPlugin()
@@ -46,42 +47,47 @@ void RemotePlugin::shutdownPlugin()
   comm->startStopCamera(Communication::Cams::GRIPPER, false);
 }
 
-void RemotePlugin::saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings)const
+void RemotePlugin::saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings) const {}
+
+void RemotePlugin::restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings) {}
+
+void RemotePlugin::callBackTimerMain(void) // const ros::TimerEvent& ev)
 {
-
-}
-
-void RemotePlugin::restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings)
-{
-
-}
-
-void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
-{
- // ros::spinOnce();
-  //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
-  auto comm = Communication::getInstance();
+  // ros::spinOnce();
+ //std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  auto comm   = Communication::getInstance();
   auto mapper = MapperController::getInstance();
   auto joyMsg = comm->joyData();
   //  auto imageMain = comm->imageMain();
-  auto pu = comm->power();
+  auto pu    = comm->power();
   auto mcRet = comm->mcRet();
-  auto hud = Hud::getInstance();
+  auto hud   = Hud::getInstance();
   mapper->mapImage();
-  static bool initialized = false;
+  static bool                         initialized = false;
+  
+  //std::cout << __PRETTY_FUNCTION__ << " 1 " << std::endl;
   if(joyMsg)
   {
+    _psPad->map(*joyMsg);
     if(!initialized)
-     if((joyMsg->axes[R2] > 0.7 && joyMsg->axes[L2] > 0.7) && !initialized)  //TODO: move into the pspad class
     {
-      ROS_INFO("Joy Node: Initializing...");
-      usleep(1000 * 1000);
-      initialized = true;
-      ROS_INFO("Joy Node: Initialized");
+     // std::cout << __PRETTY_FUNCTION__ << _psPad->axis(MapperPsPad::AxesPad::R2) << " / " << _psPad->axis(MapperPsPad::AxesPad::L2) << std::endl;
+      if(_psPad->axis(MapperPsPad::AxesPad::R2) > 0.7 && _psPad->axis(MapperPsPad::AxesPad::L2) > 0.7)
+      //if(psPad->R2() > 0.7 && psPad->L2() > 0.7)
+      // if ((joyMsg->axes[R2] > 0.7 && joyMsg->axes[L2] > 0.7) &&
+      //     !initialized) // TODO: move into the pspad class
+      {
+        ROS_INFO("Joy Node: Initializing...");
+        usleep(1000 * 1000);
+        initialized = true;
+        ROS_INFO("Joy Node: Initialized");
+      }
+      else 
+        return;
     }
-    mapper->map(*joyMsg.get());
-   
+    mapper->map(_psPad);
   }
+ // std::cout << __PRETTY_FUNCTION__ << " 2 " << std::endl;
   if(pu)
     hud->setPu(pu);
   if(mcRet)
@@ -93,6 +99,7 @@ void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
     ROS_INFO_THROTTLE(1.0, "Joy Node: Not initialized");
     return;
   }
+  //std::cout << __PRETTY_FUNCTION__ << " 3 " << std::endl;  
 
   auto csActive = comm->csActive();
   if(csActive)
@@ -106,8 +113,8 @@ void RemotePlugin::callBackTimerMain(void)//const ros::TimerEvent& ev)
   comm->republishImages();
 
   hud->update();
-  //std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+   //std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
 }
 
-} /* namespace ohm_rqt */
+} // namespace phros_remote
 PLUGINLIB_EXPORT_CLASS(phros_remote::RemotePlugin, rqt_gui_cpp::Plugin)
