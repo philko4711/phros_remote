@@ -97,7 +97,7 @@ void MapperDriveReverse::map(std::shared_ptr<MapperPsPad>& msg)
     sensorHead.home = false;
   geometry_msgs::Twist twist;
 
-  twist.linear.x =  -0.5 * (msg->axis(MapperPsPad::AxesPad::R2) - msg->axis(MapperPsPad::AxesPad::R2)) * _threshSpeedLinear;
+  twist.linear.x =  -0.5 * (msg->axis(MapperPsPad::AxesPad::R2) - msg->axis(MapperPsPad::AxesPad::L2)) * _threshSpeedLinear;
   //twist.linear.x =  -0.5 * (msg->L2() - msg->R2()) * _threshSpeedLinear;
   //twist.linear.x =  -0.5 * (joy.axes[L2] - joy.axes[R2]) * _threshSpeedLinear;   //axes switched for reverse
 

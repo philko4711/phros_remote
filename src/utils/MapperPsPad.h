@@ -9,8 +9,13 @@
 namespace phros_remote
 {
 
-const uint8_t N_BUTTONS_PS = 17;
-const uint8_t N_AXES       = 6;
+namespace
+{
+const uint8_t     N_BUTTONS_PS = 17;
+const uint8_t     N_AXES       = 6;
+const std::string typePs3      = "ps_3";
+const std::string typePs4      = "ps_4";
+} // namespace
 
 class MapperPsPad
 {
@@ -48,10 +53,10 @@ public:
   MapperPsPad();
   virtual ~MapperPsPad() {}
   virtual void      map(const sensor_msgs::Joy& joy) = 0;
-  virtual void print() = 0;
+  virtual void      print()                          = 0;
   const StateButton button(const ButtonsPad& button) const { return _buttons[static_cast<unsigned int>(button)]; }
   const float       axis(const AxesPad& axis) const { return _axes[static_cast<unsigned int>(axis)]; }
-  void reset();
+  void              reset();
   // bool              buttonPressedX(void) const { return _buttonPressedX; }
   // bool              buttonPressedC(void) const { return _buttonPressedC; }
   // bool              buttonPressedT(void) const { return _buttonPressedT; }

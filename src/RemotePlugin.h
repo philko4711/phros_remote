@@ -16,7 +16,7 @@
 
 namespace phros_remote
 {
-class MapperPs4Pad;
+class MapperPsPad;
 class RemotePlugin : public rqt_gui_cpp::Plugin
 {
   Q_OBJECT

@@ -103,7 +103,7 @@ void MapperDrive::map(std::shared_ptr<MapperPsPad>& msg)
     sensorHead.home = false;
   geometry_msgs::Twist twist;
   //twist.linear.x =  -0.5 * (joy.axes[R2] - joy.axes[L2]) * _threshSpeedLinear;
-  twist.linear.x =  -0.5 * (msg->axis(MapperPsPad::AxesPad::R2) - msg->axis(MapperPsPad::AxesPad::R2)) * _threshSpeedLinear;
+  twist.linear.x =  -0.5 * (msg->axis(MapperPsPad::AxesPad::R2) - msg->axis(MapperPsPad::AxesPad::L2)) * _threshSpeedLinear;
 
   twist.angular.z =  msg->axis(MapperPsPad::AxesPad::STICK_LEFT_X);//msg->stickLeftX();
   //map sensor head
@@ -113,7 +113,7 @@ void MapperDrive::map(std::shared_ptr<MapperPsPad>& msg)
   sensorHead.pitch = msg->axis(MapperPsPad::AxesPad::STICK_RIGHT_Y) * _threshSpeedSensorHead;//msg->stickRightY() 
   sensorHead.yaw   = msg->axis(MapperPsPad::AxesPad::STICK_RIGHT_X) * _threshSpeedSensorHead;// msg->stickRightX() ;
   //if(joy.buttons[B_A2])
-  if(msg->button(MapperPsPad::ButtonsPad::A1).state())//PressedA1())
+  if(msg->button(MapperPsPad::ButtonsPad::A2).state())//PressedA1())
     sensorHead.home = true;
   //map flippers
   ohm_teleop_msgs::FlipperAngle flippers;

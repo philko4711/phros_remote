@@ -6,7 +6,7 @@
  */
 
 #include "RemotePlugin.h"
-
+#include "utils/MapperPsPadSing.h"
 #include "Communication.h"
 #include "gui/Hud.h"
 #include "utils/MapperPs4Pad.h"
@@ -20,7 +20,7 @@ static double _threshSwitchDir = 0.25;
 
 RemotePlugin::RemotePlugin()
 {
-  // TODO Auto-generated constructor stub
+
 }
 
 RemotePlugin::~RemotePlugin()
@@ -36,7 +36,7 @@ void RemotePlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   //_timerMain = _nh.createTimer(ros::Duration(1.0 / 30.0),
   //&RemotePlugin::callBackTimerMain, this);
   connect(&_timerMain, SIGNAL(timeout(void)), this, SLOT(callBackTimerMain(void)));
-  _psPad       = std::make_shared<MapperPs4Pad>();
+ _psPad = MapperPsPadSing::instance().psPad();
   _timerMain.start(20);
 }
 
@@ -72,7 +72,7 @@ void RemotePlugin::callBackTimerMain(void) // const ros::TimerEvent& ev)
     if(!initialized)
     {
      // std::cout << __PRETTY_FUNCTION__ << _psPad->axis(MapperPsPad::AxesPad::R2) << " / " << _psPad->axis(MapperPsPad::AxesPad::L2) << std::endl;
-      if(_psPad->axis(MapperPsPad::AxesPad::R2) > 0.7 && _psPad->axis(MapperPsPad::AxesPad::L2) > 0.7)
+      if(_psPad->axis(MapperPsPad::AxesPad::R2) > AXE_MAX && _psPad->axis(MapperPsPad::AxesPad::L2) > AXE_MAX)
       //if(psPad->R2() > 0.7 && psPad->L2() > 0.7)
       // if ((joyMsg->axes[R2] > 0.7 && joyMsg->axes[L2] > 0.7) &&
       //     !initialized) // TODO: move into the pspad class
