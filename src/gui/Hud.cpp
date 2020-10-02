@@ -11,9 +11,14 @@
 #include "menu/MenuItemModeArm.h"
 #include "menu/MenuItemModeDrive.h"
 #include "menu/MenuItemFlipperAscent.h"
-//#include "menu/MenuItemFlipperDescent.h"
+#include "menu/MenuItemFlipperDescent.h"
 #include "menu/MenuItemFlipperFlat.h"
 #include "menu/MenuItemFlipperUp4.h"
+#include "menu/MenuItemArmInitialIdle.h"
+#include "menu/MenuItemArmInitialLookUp.h"
+#include "menu/MenuItemArmInitialLowered.h"
+#include "menu/MenuItemArmInitialLookSide.h"
+#include "menu/MenuItemArmInitialLookDown.h"
 //#include "menu/MenuItemArmHorns.h"
 #include "menu/MenuItemModeDriveReverse.h"
 
@@ -85,15 +90,36 @@ Hud::~Hud()
 void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPresent)
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  try
+  {
+    /* code */
+  
+  
+  
   _menu = new MenuItemModeDrive(":/menu_icons/drive.png");//   new MenuItemModeDrive(":/menu_icons/drive.png"));
   _menu->init(new MenuItemModeDriveReverse(":/menu_icons/drive_rev.png"));
   _menu->pushBack(new MenuItemModeArm(":/menu_icons/arm.png"), _menu);
+  
 
   IMenuItem* flipperItem = new MenuItemFlipperFlat(":/menu_icons/flat.png");
   _menu->pushBack(flipperItem, _menu);
   flipperItem->initUpDown(new MenuItemFlipperAscent(":/menu_icons/ascent.png"));
   // // flipperItem->pushTop(new MenuItemFlipperAscent(":/menu_icons/ascent.png"), flipperItem);
   flipperItem->pushTop(new MenuItemFlipperUp4(":/menu_icons/up4.png"), flipperItem);
+  flipperItem->pushTop(new MenuItemFlipperDescent(":/menu_icons/flipper_descend.png"), flipperItem);
+  
+  // IMenuItem* armInitialItem = new MenuItemArmInitialIdle(":/menu_icons/arm_idle.png");
+  // _menu->pushBack(armInitialItem, _menu);
+  // armInitialItem->initUpDown(new MenuItemArmInitialLookDown(":/menu_icons/arm_down.png"));
+  // armInitialItem->pushTop(new MenuItemArmInitialLowered(":/menu_icons/arm_lowered.png"), armInitialItem);
+  // armInitialItem->pushTop(new MenuItemArmInitialLookUp(":/menu_icons/arm_lookup.png"), armInitialItem);
+  // armInitialItem->pushTop(new MenuItemArmInitialLookSide(":/menu_icons/arm_look_side.png"), armInitialItem);
+  }
+  catch(const std::string& e)
+  {
+    std::cout << __PRETTY_FUNCTION__ << " error : " << e << std::endl;
+
+  }
 
   //  QString pathError = _folderPics + QString("/cross.png");
   //_menu = std::make_shared<MenuItemModeDrive>(":/menu_icons/drive.png");//   new MenuItemModeDrive(":/menu_icons/drive.png"));

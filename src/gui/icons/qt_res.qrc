@@ -14,5 +14,11 @@
     <file>youshallnotpass.png</file>
     <file>ascent.png</file>
     <file>cross.png</file>
+    <file>flipper_descend.png</file>
+    <file>arm_down.png</file>
+    <file>arm_idle.png</file>
+    <file>arm_look_side.png</file>
+    <file>arm_look_up.png</file>
+    <file>arm_lowered.png</file>
   </qresource>
 </RCC>
