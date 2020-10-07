@@ -29,8 +29,26 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_Maintenance">
+    <property name="title">
+     <string>&amp;Maintenance</string>
+    </property>
+    <addaction name="actionArmReset"/>
+    <addaction name="actionDrivesReset"/>
+   </widget>
+   <addaction name="menu_Maintenance"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionArmReset">
+   <property name="text">
+    <string>&amp;Arm Reset</string>
+   </property>
+  </action>
+  <action name="actionDrivesReset">
+   <property name="text">
+    <string>&amp;Drives Reset</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
