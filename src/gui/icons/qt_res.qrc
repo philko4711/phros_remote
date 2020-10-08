@@ -20,5 +20,6 @@
     <file>arm_look_side.png</file>
     <file>arm_look_up.png</file>
     <file>arm_lowered.png</file>
+    <file>WarningSignArmReset.png</file>
   </qresource>
 </RCC>

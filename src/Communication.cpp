@@ -47,7 +47,7 @@ Communication::Communication():
     _clientSetHoming = nh.serviceClient<ohm_actors_msgs::SetHomingSensHead>(topicSetHoming);
   else
     ROS_ERROR_STREAM(__PRETTY_FUNCTION__ << " warning. Service " << topicSetHoming << " not reachable");
-  std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
+  _clientResetArm = nh.serviceClient<std_srvs::Empty>("arm/reset");  //TODO: this needs a wait for service and an error message...maybe all these services should be based on a class
 }
 
 Communication::~Communication()
@@ -58,6 +58,12 @@ Communication::~Communication()
  _subsMcRet.stop();
  _subsGripperCs.stop();
   //_subsJoy.shutdown();
+}
+
+bool Communication::requestArmReset(void)
+{
+  std_srvs::Empty client;
+  return _clientResetArm.call(client);
 }
 
 std::shared_ptr<Communication> Communication::getInstance(void)

@@ -59,17 +59,20 @@ catkin_package(
 ###########
 
 
-SET(UIS_REMOTE src/gui/main.ui)
+SET(UIS_REMOTE src/gui/main.ui
+              src/gui/dialog_warning_armreset.ui)
 
 SET(HDRS_REMOTE src/RemotePlugin.h
 				src/gui/WidgetMain.h
-				src/gui/Hud.h)
+        src/gui/Hud.h
+        src/gui/DialogWarningArmReset.h)
 
 SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/gui/WidgetMain.cpp
 				src/Communication.cpp
 				src/gui/Hud.cpp
-				src/gui/PerspectiveModel.cpp
+        src/gui/PerspectiveModel.cpp
+        src/gui/DialogWarningArmReset.cpp
         src/utils/SuperImageSubscriber.cpp
         src/utils/MapperPs4Pad.cpp
         src/utils/MapperPsPad.cpp

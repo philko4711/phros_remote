@@ -21,6 +21,8 @@
 #include "menu/MenuItemArmInitialLookDown.h"
 //#include "menu/MenuItemArmHorns.h"
 #include "menu/MenuItemModeDriveReverse.h"
+#include "DialogWarningArmReset.h"
+#include "Communication.h"
 
 //#include "PerspectiveModel.h"
 
@@ -46,10 +48,12 @@ Hud::Hud():
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   _guiUi->setupUi(this);
+  connect(_guiUi->actionArmReset, SIGNAL(triggered()), this, SLOT(requestArmReset()));
   //  std::cout << __PRETTY_FUNCTION__ << " constructor " << std::endl;
   //  std::cout << __PRETTY_FUNCTION__ << " const items " << std::endl;
   //  for(auto& iter : _iconsConst)
   //    std::cout << __PRETTY_FUNCTION__ << " " << iter << std::endl;
+  
 
 
   QImage image;
@@ -167,6 +171,22 @@ void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPres
 //{
 //  _parent.setRemoteOverride(false);
 //}
+
+void Hud::requestArmReset(void)
+{
+  static DialogWarningArmReset dialogArmReset;
+  if(dialogArmReset.exec() == QDialog::Accepted)
+  {
+    if(!Communication::getInstance()->requestArmReset())
+      ROS_ERROR_STREAM(__PRETTY_FUNCTION__ << " call to reset arm service failed");
+    std::cout << __PRETTY_FUNCTION__ << " yeah go for it " << std::endl; 
+  }
+  else
+  {
+    std::cout << __PRETTY_FUNCTION__ << " nope " << std::endl;
+  }
+    
+}
 
 void Hud::buttonPressed(const ButtonsPs3& button)
 {

@@ -20,6 +20,7 @@
 #include "ohm_schroedi_mc/mc_ret.h"
 #include "ohm_teleop_msgs/FlipperAngle.h"
 #include "ohm_actors_msgs/SensorHeadJoy.h"
+#include <std_srvs/Empty.h>
 
 namespace phros_remote
 {
@@ -48,6 +49,7 @@ public:
   void publishToDrive(const geometry_msgs::Twist& vel){_pubToDrives.publish(vel);}
   void publishToSensorHead(const ohm_actors_msgs::SensorHeadJoy& sens){_pubSensorHead.publish(sens);}
   void publishToFlippers(const ohm_teleop_msgs::FlipperAngle& flippers){_pubFlippers.publish(flippers);}
+  bool requestArmReset(void);
 private:
   void callBackJoy(const sensor_msgs::Joy& joy);
   Communication();
@@ -68,6 +70,7 @@ private:
   ros::Publisher _pubToDrives;
   ros::Publisher _pubFlippers;
   ros::Publisher _pubSensorHead;
+  ros::ServiceClient _clientResetArm;
 };
 
 } /* namespace ohm_remote */

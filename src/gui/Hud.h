@@ -84,6 +84,7 @@ public slots:
 //  void spreadGripper(void);
 //  void resetTrackDrives(void);
 //  void setQrs(const std::vector<QrCode>& qrs){_widget->setQrs(qrs);}
+  void requestArmReset(void);
 private:
 Hud(void);
  // void setRemoteOverride(void);
@@ -103,6 +104,7 @@ Hud(void);
   //std::shared_ptr<WidgetMain> _mainWidget;
   static std::shared_ptr<Hud> _instance;
   std::unique_ptr<Ui::HudMain> _guiUi;
+  
 };
 
 
