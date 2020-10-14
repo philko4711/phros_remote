@@ -14,9 +14,14 @@ class Menu
     virtual ~Menu();
     void left();
     void right();
-    IMenuItem& iconcentral()const;
-    IMenuItem& iconleft()const;
-    IMenuItem& iconright()const;
+    void top(){_ringBuffer = _ringBuffer->top();}
+    void bottom(){_ringBuffer = _ringBuffer->bottom();}
+    IMenuItem* iconcentral()const;
+    IMenuItem* iconleft()const;
+    IMenuItem* iconright()const;
+    IMenuItem* icontop()const;
+    IMenuItem* iconbottom()const;
+
     void printConsole();
   private:
     ItemRingBuffer<IMenuItem>* _ringBuffer;  

@@ -20,15 +20,33 @@ void MenuTest::paintEvent(QPaintEvent* event)
   rectCenter.setWidth(this->rect().width() / 8);
   rectCenter.setHeight(this->rect().height() / 8);
   rectCenter.moveCenter(this->rect().center());
-  painter.drawImage(rectCenter, _menu.iconcentral().menuIcon(), _menu.iconcentral().menuIcon().rect());
+  painter.drawImage(rectCenter, _menu.iconcentral()->menuIcon(), _menu.iconcentral()->menuIcon().rect());
 
   QRect menuRectSMall = rectCenter;
   menuRectSMall.setWidth(this->rect().width() / 16);
   menuRectSMall.setHeight(this->rect().height() / 16);
-  menuRectSMall.moveCenter(this->rect().center() - QPoint(menuRectSMall.width() + 10, 0));
-  painter.drawImage(menuRectSMall, _menu.iconleft().menuIcon(), _menu.iconleft().menuIcon().rect());
-  menuRectSMall.moveCenter(this->rect().center() + QPoint(menuRectSMall.width() + 10, 0));
-  painter.drawImage(menuRectSMall, _menu.iconright().menuIcon(), _menu.iconright().menuIcon().rect());
+
+  if(_menu.iconleft())
+  {
+    menuRectSMall.moveCenter(this->rect().center() - QPoint(menuRectSMall.width() + 10, 0));
+    painter.drawImage(menuRectSMall, _menu.iconleft()->menuIcon(), _menu.iconleft()->menuIcon().rect());
+  }
+  if(_menu.iconright())
+  {
+    menuRectSMall.moveCenter(this->rect().center() + QPoint(menuRectSMall.width() + 10, 0));
+    painter.drawImage(menuRectSMall, _menu.iconright()->menuIcon(), _menu.iconright()->menuIcon().rect());
+  }
+  if(_menu.icontop())
+  {
+  menuRectSMall.moveCenter(this->rect().center() + QPoint(0, menuRectSMall.height() + 10));
+    painter.drawImage(menuRectSMall, _menu.icontop()->menuIcon(), _menu.icontop()->menuIcon().rect());  
+  }
+  if(_menu.iconbottom())
+  {
+      menuRectSMall.moveCenter(this->rect().center() - QPoint(0, menuRectSMall.height() + 10));
+    painter.drawImage(menuRectSMall, _menu.iconbottom()->menuIcon(), _menu.iconbottom()->menuIcon().rect());
+  }
+
 }
 
 void MenuTest::callBackTimer() { std::cout << __PRETTY_FUNCTION__ << " thread id " << std::this_thread::get_id() << std::endl; }
@@ -56,11 +74,13 @@ void MenuTest::joyCommandReceived(void)
   else if(gamepad.button(phros_remote::MapperPsPad::ButtonsPad::CROSS_UP).edge() == phros_remote::StateButton::Edge::RISING)
   {
     qDebug() << __PRETTY_FUNCTION__ << "UP";
+    _menu.top();
     this->update();
   }
   else if(gamepad.button(phros_remote::MapperPsPad::ButtonsPad::CROSS_DOWN).edge() == phros_remote::StateButton::Edge::RISING)
   {
     qDebug() << __PRETTY_FUNCTION__ << "DOWN";
+    _menu.bottom();
     this->update();
   }
 }
