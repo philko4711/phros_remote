@@ -108,16 +108,16 @@ void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPres
   IMenuItem* flipperItem = new MenuItemFlipperFlat(":/menu_icons/flat.png");
   _menu->pushBack(flipperItem, _menu);
   flipperItem->initUpDown(new MenuItemFlipperAscent(":/menu_icons/ascent.png"));
-  // // flipperItem->pushTop(new MenuItemFlipperAscent(":/menu_icons/ascent.png"), flipperItem);
+  flipperItem->pushTop(new MenuItemFlipperAscent(":/menu_icons/ascent.png"), flipperItem);
   flipperItem->pushTop(new MenuItemFlipperUp4(":/menu_icons/up4.png"), flipperItem);
   flipperItem->pushTop(new MenuItemFlipperDescent(":/menu_icons/flipper_descend.png"), flipperItem);
   
-  // IMenuItem* armInitialItem = new MenuItemArmInitialIdle(":/menu_icons/arm_idle.png");
-  // _menu->pushBack(armInitialItem, _menu);
-  // armInitialItem->initUpDown(new MenuItemArmInitialLookDown(":/menu_icons/arm_down.png"));
-  // armInitialItem->pushTop(new MenuItemArmInitialLowered(":/menu_icons/arm_lowered.png"), armInitialItem);
-  // armInitialItem->pushTop(new MenuItemArmInitialLookUp(":/menu_icons/arm_lookup.png"), armInitialItem);
-  // armInitialItem->pushTop(new MenuItemArmInitialLookSide(":/menu_icons/arm_look_side.png"), armInitialItem);
+  IMenuItem* armInitialItem = new MenuItemArmInitialIdle(":/menu_icons/arm_idle.png");
+  _menu->pushBack(armInitialItem, _menu);
+  armInitialItem->initUpDown(new MenuItemArmInitialLookDown(":/menu_icons/arm_down.png"));
+  armInitialItem->pushTop(new MenuItemArmInitialLowered(":/menu_icons/arm_lowered.png"), armInitialItem);
+  armInitialItem->pushTop(new MenuItemArmInitialLookUp(":/menu_icons/arm_lookup.png"), armInitialItem);
+  armInitialItem->pushTop(new MenuItemArmInitialLookSide(":/menu_icons/arm_look_side.png"), armInitialItem);
   }
   catch(const std::string& e)
   {

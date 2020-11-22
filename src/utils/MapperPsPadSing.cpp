@@ -12,7 +12,7 @@ namespace phros_remote
   {
     std::string configGamePad;
     ros::NodeHandle prvNh("~");
-    prvNh.param<std::string>("config_game_pad", configGamePad, "ps_3");
+    prvNh.param<std::string>("config_game_pad", configGamePad, "ps_4");
 
     if(configGamePad == typePs3)
     {

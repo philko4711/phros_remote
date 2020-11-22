@@ -9,6 +9,7 @@
 #include <mutex>
 #include "gui/menu/Menu.h"
 
+
 class MenuTest : public QWidget
 {
   Q_OBJECT
@@ -16,19 +17,27 @@ class MenuTest : public QWidget
     MenuTest(QWidget* parent = nullptr);
     virtual ~MenuTest(){}
     void paintEvent(QPaintEvent* event)override;
+    void callBackJoy(const sensor_msgs::Joy& joy);
+      void callBackTimer();
+      void callBackImage(const sensor_msgs::ImageConstPtr& image);
+    
     public slots:
       void joyCommandReceived(void);
-      void callBackJoy(const sensor_msgs::Joy& joy);
-      void callBackTimer();
+      void imageReceived(void);
+      
       signals:
       void newJoyCommand();
+      void newImage();
   private:  
     ThreadRos _threadRos;
     ros::NodeHandle _nh;
     QTimer _timer;
     std::mutex _mutexJoy;
+    std::mutex _mutexImage;
     sensor_msgs::Joy _joy;
     phros_remote::Menu _menu;
+   // image_transport::ImageTransport _it;
+    QImage _imageCamera;
 };
 
 #endif

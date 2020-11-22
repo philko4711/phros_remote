@@ -5,6 +5,7 @@
 #include <thread>
 #include <sensor_msgs/Joy.h>
 #include <ros/ros.h>
+#include <image_transport/image_transport.h>
 
 class MenuTest;
 
@@ -21,6 +22,7 @@ class ThreadRos
       MenuTest& _parent;
       ros::Subscriber _subsJoy;
       std::thread _threadSpin;
+      image_transport::Subscriber _subsImage;
 };
 
 #endif

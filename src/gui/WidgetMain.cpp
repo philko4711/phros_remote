@@ -18,8 +18,8 @@ WidgetMain::WidgetMain(QWidget *parent) : QWidget(parent),
                                           _armActive(false),
                                           _globalCoordinateSystem(false),
                                           _armConstraintsActive(false),
-                                          _imageMain(std::make_unique<QImage>()),
-                                          _imageGripper(std::make_unique<QImage>())
+                                          _imageMain(std::unique_ptr<QImage>(new QImage)),
+                                          _imageGripper(std::unique_ptr<QImage>(new QImage))
 //_iconMode(std::make_unique<QImage>())
 {
   //  if(!parent)
@@ -30,7 +30,7 @@ WidgetMain::WidgetMain(QWidget *parent) : QWidget(parent),
   ros::NodeHandle prvNh("~");
   prvNh.param<double>("max_48_v", _max48V, 48.9);
   prvNh.param<double>("max_24_v", _max24V, 24.9);
-  _pervModel = std::make_unique<PerspectiveModel>(3.0, 3.0, 0.5, 0.2, 0.4, 1.0);
+  _pervModel = std::unique_ptr<PerspectiveModel>(new PerspectiveModel(3.0, 3.0, 0.5, 0.2, 0.4, 1.0));
   _iconCs.load(":/menu_icons/gripper.png");
   _iconYouShallNotPass.load(":/menu_icons/youshallnotpass.png");
   //_iconsConst[static_cast<unsigned int>(IconsConst::YOU_SHALL_NOT_PASS)] =  std::shared_ptr<QImage>(new QImage(image));

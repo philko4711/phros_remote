@@ -7,7 +7,9 @@ _parent(parent),
   _threadSpin(&ThreadRos::run, this)
 {
   ros::NodeHandle nh;
+  image_transport::ImageTransport it(nh);
   _subsJoy = nh.subscribe("joy", 1, &MenuTest::callBackJoy, &_parent);
+  _subsImage = it.subscribe("usb_cam/image_raw", 1, &MenuTest::callBackImage, &_parent);
 }
 
 ThreadRos::~ThreadRos()

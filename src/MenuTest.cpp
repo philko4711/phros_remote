@@ -9,6 +9,8 @@ MenuTest::MenuTest(QWidget* parent)
 {
   // connect(&_timer, SIGNAL(timeout()), this, SLOT(callBackTimer()));
   connect(this, SIGNAL(newJoyCommand()), this, SLOT(joyCommandReceived()));
+  connect(this, SIGNAL(newImage()), this, SLOT(imageReceived()));
+
   //_timer.start(1000);
   this->resize(1600, 1600);
 }
@@ -16,34 +18,53 @@ MenuTest::MenuTest(QWidget* parent)
 void MenuTest::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
-  QRect    rectCenter = this->rect();
-  rectCenter.setWidth(this->rect().width() / 8);
-  rectCenter.setHeight(this->rect().height() / 8);
-  rectCenter.moveCenter(this->rect().center());
+  const float ratio =  2.0f / 1.0f ; 
+  QRect resized;
+  const int widthCorrected = static_cast<int>(std::round(static_cast<float>(this->rect().height()) * ratio));
+  const int heightCorrected = static_cast<int>(std::round(static_cast<float>(this->rect().width()) / ratio));
+  if(heightCorrected > this->rect().height())
+  {
+    resized.setHeight(this->rect().height());
+    resized.setWidth(widthCorrected);
+  }
+  else
+  {
+    resized.setWidth(this->rect().width());
+    resized.setHeight(heightCorrected);
+  }
+  if(!_imageCamera.isNull())
+  {
+    painter.drawImage(resized, _imageCamera, _imageCamera.rect());
+  }
+
+  QRect    rectCenter = resized;//this->rect();
+  rectCenter.setWidth(resized.width() / 8);
+  rectCenter.setHeight(resized.height() / 8);
+  rectCenter.moveCenter(resized.center());
   painter.drawImage(rectCenter, _menu.iconcentral()->menuIcon(), _menu.iconcentral()->menuIcon().rect());
 
   QRect menuRectSMall = rectCenter;
-  menuRectSMall.setWidth(this->rect().width() / 16);
-  menuRectSMall.setHeight(this->rect().height() / 16);
+  menuRectSMall.setWidth(resized.width() / 16);
+  menuRectSMall.setHeight(resized.height() / 16);
 
   if(_menu.iconleft())
   {
-    menuRectSMall.moveCenter(this->rect().center() - QPoint(menuRectSMall.width() + 10, 0));
+    menuRectSMall.moveCenter(resized.center() - QPoint(menuRectSMall.width() + 10, 0));
     painter.drawImage(menuRectSMall, _menu.iconleft()->menuIcon(), _menu.iconleft()->menuIcon().rect());
   }
   if(_menu.iconright())
   {
-    menuRectSMall.moveCenter(this->rect().center() + QPoint(menuRectSMall.width() + 10, 0));
+    menuRectSMall.moveCenter(resized.center() + QPoint(menuRectSMall.width() + 10, 0));
     painter.drawImage(menuRectSMall, _menu.iconright()->menuIcon(), _menu.iconright()->menuIcon().rect());
   }
   if(_menu.icontop())
   {
-  menuRectSMall.moveCenter(this->rect().center() + QPoint(0, menuRectSMall.height() + 10));
+  menuRectSMall.moveCenter(resized.center() + QPoint(0, menuRectSMall.height() + 10));
     painter.drawImage(menuRectSMall, _menu.icontop()->menuIcon(), _menu.icontop()->menuIcon().rect());  
   }
   if(_menu.iconbottom())
   {
-      menuRectSMall.moveCenter(this->rect().center() - QPoint(0, menuRectSMall.height() + 10));
+      menuRectSMall.moveCenter(resized.center() - QPoint(0, menuRectSMall.height() + 10));
     painter.drawImage(menuRectSMall, _menu.iconbottom()->menuIcon(), _menu.iconbottom()->menuIcon().rect());
   }
 
@@ -93,4 +114,17 @@ void MenuTest::callBackJoy(const sensor_msgs::Joy& joy)
   _joy = joy;
   _mutexJoy.unlock();
   emit this->newJoyCommand();
+}
+
+void MenuTest::callBackImage(const sensor_msgs::ImageConstPtr& image)
+{
+  _mutexImage.lock();
+  _imageCamera = QImage(image->data.data(), image->width, image->height, QImage::Format_RGB888);
+  emit this->newImage();
+  _mutexImage.unlock();
+}
+
+void MenuTest::imageReceived(void)
+{
+  this->update();
 }
