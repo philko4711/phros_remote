@@ -64,8 +64,6 @@ void RemotePlugin::callBackTimerMain(void) // const ros::TimerEvent& ev)
   auto hud   = Hud::getInstance();
   mapper->mapImage();
   static bool                         initialized = false;
-  
-  //std::cout << __PRETTY_FUNCTION__ << " 1 " << std::endl;
   if(joyMsg)
   {
     _psPad->map(*joyMsg);
@@ -87,6 +85,7 @@ void RemotePlugin::callBackTimerMain(void) // const ros::TimerEvent& ev)
     }
     mapper->map(_psPad);
   }
+  hud->setflagPadInitialized(initialized);
  // std::cout << __PRETTY_FUNCTION__ << " 2 " << std::endl;
   if(pu)
     hud->setPu(pu);

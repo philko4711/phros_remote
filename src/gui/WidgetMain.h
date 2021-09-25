@@ -55,6 +55,7 @@ public:
   void setArmActive(const bool active){_armActive = active;}
   void setGlobalCoordinateSystem(const bool cs){_globalCoordinateSystem = cs;}
   void setArmConstraints(const bool val){_armConstraintsActive = val;}
+  void setFlagPadInitialized(const bool value){_flagPadIntialized = value;}
 private:
   void drawEnergyBar(const float& energy, const float& energyMax, const QRect& boundingRect, QPainter& painter, const BarColors colors, const QString& label, const AlarmLevels& alarm);
   std::unique_ptr<QImage> _imageMain;
@@ -69,6 +70,7 @@ private:
   bool _armActive;
   bool _globalCoordinateSystem;
   bool _armConstraintsActive;
+  bool _flagPadIntialized = false;
   QImage _iconCs;
   QImage _iconYouShallNotPass;
 };

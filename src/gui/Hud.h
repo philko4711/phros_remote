@@ -77,6 +77,7 @@ public:
   void setGlobalCoordinateSystem(const bool cs){_guiUi->widget->setGlobalCoordinateSystem(cs);}
   void setArmConstraints(const bool val){_guiUi->widget->setArmConstraints(val);}
   void setArmActive(const bool val){_guiUi->widget->setArmActive(val);}
+  void setflagPadInitialized(const bool value){_guiUi->widget->setFlagPadInitialized(value);}
 public slots:
 //  void sendFlipperPreset(const ohm_schroedi_mc::FlipperPreset& preset);
 //  //void sendArmHorns(const bool& on);
@@ -104,6 +105,7 @@ Hud(void);
   //std::shared_ptr<WidgetMain> _mainWidget;
   static std::shared_ptr<Hud> _instance;
   std::unique_ptr<Ui::HudMain> _guiUi;
+  bool _flagPadInitialized = false;
   
 };
 

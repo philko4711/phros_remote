@@ -28,7 +28,8 @@ std::shared_ptr<MapperController> MapperController::getInstance(void)
 }
 
 MapperController::MapperController(void)
-    : _mappers(4, NULL)
+    : _mappers(4, NULL),
+    _nh("heini")
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::ARM)]       = std::shared_ptr<MapperArm>(new MapperArm(_nh));

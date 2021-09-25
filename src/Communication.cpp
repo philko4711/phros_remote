@@ -25,7 +25,7 @@ Communication::Communication():
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   ros::NodeHandle nh;
-  ros::NodeHandle prvNh("~");
+  ros::NodeHandle prvNh("heini");
   std::string topicTwist;
   std::string topicFlippers;
   std::string topicSensorHead;
@@ -37,7 +37,7 @@ Communication::Communication():
   _it = std::unique_ptr<image_transport::ImageTransport>(new image_transport::ImageTransport(nh)); //_subsJoy = nh.subscribe("joy", 1, &Commun //_subsJoy = nh.subscribe("joy", 1, &Communication::callBackJoy, this); //_subsJoy = nh.subscribe("joy", 1, &Communication::callBackJoy, this);ication::callBackJoy, this);
   _pubReImageGripper = _it->advertise("hud/image_gripper", 1);//, image_transport::TransportHints("compressed"));
   _pubReImageMain = _it->advertise("hud/image_main", 1);//, image_transport::TransportHints("compressed"));
-  _pubToDrives = nh.advertise<geometry_msgs::Twist>("vel/cmd", 1);
+  _pubToDrives = nh.advertise<geometry_msgs::Twist>(topicTwist, 1);
   _pubFlippers   = nh.advertise<ohm_teleop_msgs::FlipperAngle>(topicFlippers, 1);
   _pubSensorHead = nh.advertise<ohm_actors_msgs::SensorHeadJoy>(topicSensorHead, 1);
   _clientFlipperPreset = nh.serviceClient<ohm_schroedi_mc::FlipperPreset>("/flipper/preset");
