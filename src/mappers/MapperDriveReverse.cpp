@@ -37,7 +37,7 @@ MapperDriveReverse::MapperDriveReverse(ros::NodeHandle& nh)
   double      threshSpeedSensorHead = 0.0;
   double      speedFlipperManual    = 0.0;
 
-  ros::NodeHandle prvNh("heini");
+  ros::NodeHandle prvNh("~");
   prvNh.param<double>("thresh_speed_linear", threshSpeedLinearVar, 1.3);
   prvNh.param<double>("thresh_speed_linear", threshSpeedAngVar, 0.8);
   prvNh.param<double>("thresh_speed_sensor_head", threshSpeedSensorHead, 0.6);

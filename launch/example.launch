@@ -1,5 +1,5 @@
 <launch>
   <node name = "phros_remote" pkg = "rqt_gui" type = "rqt_gui" respawn = "false" output = "screen" args = "--perspective-file $(find phros_remote)/config/remote.perspective"/>
-    <param name = "heini/topic_twist" type = "string" value = "cmd_vel"/>
+    <!-- <param name = "heini/topic_twist" type = "string" value = "cmd_vel"/> -->
   <!--</node>  -->
 </launch>

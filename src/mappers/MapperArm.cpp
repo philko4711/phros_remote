@@ -26,7 +26,7 @@ MapperArm::MapperArm(ros::NodeHandle& nh):
   ros::NodeHandle prvNh("~");
   std::string topicArmCommand;
   prvNh.param<std::string>("topic_arm_command", topicArmCommand, "arm_command");
-  _pubArmCommand = _nh.advertise<ohm_teleop_msgs::ArmCommand>(topicArmCommand, 1);
+  _pubArmCommand = _nh.advertise<ohm_teleop_msgs::ArmCommand>("arm_command", 1);   //topicArmCommand
 }
 
 MapperArm::~MapperArm()

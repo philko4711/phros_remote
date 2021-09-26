@@ -28,8 +28,8 @@ std::shared_ptr<MapperController> MapperController::getInstance(void)
 }
 
 MapperController::MapperController(void)
-    : _mappers(4, NULL),
-    _nh("heini")
+    : _mappers(4, NULL)
+//,_nh("heini")
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::ARM)]       = std::shared_ptr<MapperArm>(new MapperArm(_nh));
@@ -160,7 +160,7 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     return false;
   }
   }
-  _mapper->setReset();  //TODO: this call is not good in the hud mapper...check if we need it every time
+  _mapper->setReset(); // TODO: this call is not good in the hud mapper...check if we need it every time
   Hud::getInstance()->setCurrentProfile(type);
   return true;
 }

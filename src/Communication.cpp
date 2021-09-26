@@ -25,7 +25,7 @@ Communication::Communication():
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
   ros::NodeHandle nh;
-  ros::NodeHandle prvNh("heini");
+  ros::NodeHandle prvNh("~");
   std::string topicTwist;
   std::string topicFlippers;
   std::string topicSensorHead;

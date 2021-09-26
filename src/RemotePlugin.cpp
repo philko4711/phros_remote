@@ -85,6 +85,8 @@ void RemotePlugin::callBackTimerMain(void) // const ros::TimerEvent& ev)
     }
     mapper->map(_psPad);
   }
+  else
+    initialized = false;
   hud->setflagPadInitialized(initialized);
  // std::cout << __PRETTY_FUNCTION__ << " 2 " << std::endl;
   if(pu)
