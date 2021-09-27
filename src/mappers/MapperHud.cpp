@@ -74,7 +74,7 @@ void MapperHud::map(std::shared_ptr<MapperPsPad>& msg)
   //else if(msg->buttonPressedPS() && !_last->buttonPressedPS())
   //else if(msg.buttons[B_PS] && !_last.buttons[B_PS])
   {
-    std::cout << __PRETTY_FUNCTION__ << " switch back " << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << " switch back " << std::endl;
     MapperController::getInstance()->switchMapper();
   return;
   }
@@ -82,14 +82,14 @@ void MapperHud::map(std::shared_ptr<MapperPsPad>& msg)
   //else if(msg->crossUp() && !_last->crossUp())
 //  else if(msg.buttons[B_UP] && !_last.buttons[B_UP])
   {
-    std::cout << __PRETTY_FUNCTION__ << "up pressed" << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << "up pressed" << std::endl;
     hud->menuUp();
   }
   else if(msg->button(MapperPsPad::ButtonsPad::CROSS_DOWN).edge() == StateButton::Edge::RISING)
   //else if(msg->crossDown() && !_last->crossDown())
   //else if(msg.buttons[B_DOWN] && !_last.buttons[B_DOWN])
     {
-    std::cout << __PRETTY_FUNCTION__ << "down pressed" << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << "down pressed" << std::endl;
       hud->menuDown();
     }
 

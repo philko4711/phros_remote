@@ -47,6 +47,7 @@ WidgetMain::~WidgetMain()
 void WidgetMain::paintEvent(QPaintEvent* event)
 {
   //  std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
+  //std::cout << __PRETTY_FUNCTION__ << " flag pad init " << _flagPadIntialized << std::endl;
   QPainter painter(this);
   if(!_imageMain->size().isEmpty())
   {
@@ -190,13 +191,15 @@ void WidgetMain::paintEvent(QPaintEvent* event)
       rectShallNotPass.moveTopLeft(this->rect().topLeft() + QPoint(rectShallNotPass.width() / 4, rectShallNotPass.height() / 2));
       painter.drawImage(rectShallNotPass, _iconYouShallNotPass, _iconYouShallNotPass.rect());
     }
-    if(!_flagPadIntialized)
-    {
-      QRect  rectPadNotInit(0, 0, this->rect().width() / 4, this->rect().height() / 4);
-      QImage iconPadNotInit;
-      iconPadNotInit.load(":/menu_icons/pad_not_initialized.png");
-      painter.drawImage(rectPadNotInit, iconPadNotInit, iconPadNotInit.rect());
-    }
+  }
+  if(!_flagPadIntialized)
+  {
+    //std::cout << __PRETTY_FUNCTION__ << " draw no init icon " << std::endl;
+    QRect rectPadNotInit(0, 0, this->rect().width() / 4, this->rect().height() / 4);
+    rectPadNotInit.moveCenter(this->rect().center());
+    QImage iconPadNotInit;
+    iconPadNotInit.load(":/menu_icons/pad_not_initialized.png");
+    painter.drawImage(rectPadNotInit, iconPadNotInit, iconPadNotInit.rect());
   }
 
   painter.restore();
