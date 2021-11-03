@@ -5,6 +5,7 @@
 #include "MenuItemFlipperUp4.h"
 #include "MenuItemModeArm.h"
 #include "MenuItemModeDrive.h"
+#include "MenuItemModeInspect.h"
 #include "MenuItemModeDriveReverse.h"
 #include <ros/ros.h>
 
@@ -19,6 +20,7 @@ Menu::Menu()
     // std::cout << __PRETTY_FUNCTION__ << " initial element " << std::endl;
     // this->printConsole();
     _ringBuffer->pushBack(new ItemRingBuffer<IMenuItem>(std::make_shared<MenuItemModeDriveReverse>(":/menu_icons/drive_rev.png")));
+    _ringBuffer->pushBack(new ItemRingBuffer<IMenuItem>(std::make_shared<MenuItemModeInspect>(":/menu_icons/inspection.png")));
     // std::cout << __PRETTY_FUNCTION__ << " first push" << std::endl;
     // this->printConsole();
     

@@ -91,6 +91,7 @@ SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/gui/menu/MenuItemModeArm.cpp
 				src/gui/menu/MenuItemModeDrive.cpp
 				src/gui/menu/MenuItemModeDriveReverse.cpp
+        src/gui/menu/MenuItemModeInspect.cpp
         src/gui/menu/MenuItemFlipperAscent.cpp
         src/gui/menu/MenuItemFlipperDescent.cpp
 				src/gui/menu/MenuItemFlipperFlat.cpp
@@ -134,6 +135,7 @@ SET(SRCS_MENU_TEST src/menu_test.cpp
 				src/gui/menu/MenuItemModeArm.cpp
 				src/gui/menu/MenuItemModeDrive.cpp
 				src/gui/menu/MenuItemModeDriveReverse.cpp
+        src/gui/menu/MenuItemModeInspect.cpp
         src/gui/menu/MenuItemFlipperAscent.cpp
         src/gui/menu/MenuItemFlipperDescent.cpp
 				src/gui/menu/MenuItemFlipperFlat.cpp

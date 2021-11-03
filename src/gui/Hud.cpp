@@ -21,6 +21,7 @@
 #include "menu/MenuItemArmInitialLookDown.h"
 //#include "menu/MenuItemArmHorns.h"
 #include "menu/MenuItemModeDriveReverse.h"
+#include "menu/MenuItemModeInspect.h"
 #include "DialogWarningArmReset.h"
 #include "Communication.h"
 
@@ -103,6 +104,7 @@ void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPres
   _menu = new MenuItemModeDrive(":/menu_icons/drive.png");//   new MenuItemModeDrive(":/menu_icons/drive.png"));
   _menu->init(new MenuItemModeDriveReverse(":/menu_icons/drive_rev.png"));
   _menu->pushBack(new MenuItemModeArm(":/menu_icons/arm.png"), _menu);
+  _menu->pushBack(new MenuItemModeInspect(":/menu_icons/inspect.png"), _menu);
   
 
   IMenuItem* flipperItem = new MenuItemFlipperFlat(":/menu_icons/flat.png");

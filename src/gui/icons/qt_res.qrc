@@ -22,5 +22,6 @@
     <file>arm_lowered.png</file>
     <file>WarningSignArmReset.png</file>
     <file>pad_not_initialized.png</file>
+    <file>inspection.png</file>
   </qresource>
 </RCC>
