@@ -22,7 +22,8 @@ public:
     DRIVE=0,
     ARM,
     DRIVE_REV,
-    HUD
+    HUD,
+    INSPECT
   };
   IMapper(){}
   virtual ~IMapper(){}

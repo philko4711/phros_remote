@@ -1,0 +1,25 @@
+﻿---
+BasedOnStyle: LLVM
+AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'true'
+BreakBeforeBraces: Allman
+BreakBeforeInheritanceComma: 'false'
+BreakConstructorInitializers: BeforeComma
+ColumnLimit: '157'
+IndentWidth: '2'
+Language: Cpp
+ObjCSpaceAfterProperty: 'false'
+PointerAlignment: Left
+SpaceAfterTemplateKeyword: 'false'
+SpaceBeforeAssignmentOperators: 'true'
+SpaceBeforeParens: Never
+SpacesInAngles: 'false'
+SpacesInCStyleCastParentheses: 'false'
+SpacesInContainerLiterals: 'false'
+SpacesInParentheses: 'false'
+SpacesInSquareBrackets: 'false'
+Standard: Cpp03
+TabWidth: '2'
+UseTab: Never
+
+...
