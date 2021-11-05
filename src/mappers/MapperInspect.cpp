@@ -3,7 +3,9 @@
 
 namespace phros_remote
 {
-MapperInspect::MapperInspect() 
+MapperInspect::MapperInspect():
+_subsImgTele(std::make_unique<SuperImageSubscriber>("/tele_cam/image_rect")),
+_subsImgTotal(std::make_unique<SuperImageSubscriber>("/orbbec/overview"))
 {
 
 }

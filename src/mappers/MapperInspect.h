@@ -4,6 +4,8 @@
 
 #include "IMapper.h"
 #include "MapperBase.h"
+#include "utils/SuperImageSubscriber.h"
+#include <memory>
 
 namespace phros_remote
 {
@@ -23,6 +25,8 @@ namespace phros_remote
 const unsigned int _focusSpeedMax = 2;
 const double _deadzoneZoom = 0.01;
 const double _deadzoneFocus = 0.01;
+std::unique_ptr<SuperImageSubscriber> _subsImgTele;
+std::unique_ptr<SuperImageSubscriber> _subsImgTotal;
 };
 }
 #endif
