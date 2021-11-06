@@ -9,7 +9,8 @@ MapperInspect::MapperInspect():
 _subsImgTele(std::make_unique<SuperImageSubscriber>("/tele_cam/image_rect", ros::Duration(1.0))),
 _subsImgTotal(std::make_unique<SuperImageSubscriber>("/orbbec/overview", ros::Duration(1.0)))
 {
-
+   ros::NodeHandle nh;
+   _pubVistaControl = nh.advertise<ohm_visca_control::viscaControl>("viscaControl", 1);
 }
 
 void MapperInspect::map(std::shared_ptr<MapperPsPad>& msg)
@@ -77,6 +78,7 @@ void MapperInspect::map(std::shared_ptr<MapperPsPad>& msg)
     }
   }
   control_data.header.stamp = ros::Time::now();
+  _pubVistaControl.publish(control_data);
 }
 void MapperInspect::mapImage(void) {
    auto hud       = Hud::getInstance();
