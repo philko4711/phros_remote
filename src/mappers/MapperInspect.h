@@ -21,10 +21,11 @@ namespace phros_remote
   virtual void init(void){}
   private:
     ros::Publisher _pubVistaControl;
-    const unsigned int _zoomSpeedMax = 7;
+    const unsigned int _zoomSpeedMax = 7;  //TODO: make accesible by launch or config
 const unsigned int _focusSpeedMax = 2;
 const double _deadzoneZoom = 0.01;
 const double _deadzoneFocus = 0.01;
+float _threshSpeedSensorHead;
 std::unique_ptr<SuperImageSubscriber> _subsImgTele;
 std::unique_ptr<SuperImageSubscriber> _subsImgTotal;
 };
