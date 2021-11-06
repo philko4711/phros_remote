@@ -43,6 +43,7 @@ public:
       REMOTE_ARM = 0,
       REMOTE_DRIVE,
       REMOTE_REVERSE,
+      REMOTE_INSPECT,
       ERROR,
       REFERENCE,
       YOU_SHALL_NOT_PASS

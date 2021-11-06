@@ -7,7 +7,7 @@
 
 #include "MapperDrive.h"
 #include "Communication.h"
-#include "Hud.h"
+#include "gui/Hud.h"
 #include "MapperController.h"
 #include "ohm_actors_msgs/SensorHeadJoy.h"
 #include "ohm_teleop_msgs/FlipperAngle.h"

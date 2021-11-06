@@ -12,6 +12,7 @@
 #include "mappers/MapperDrive.h"
 #include "mappers/MapperDriveReverse.h"
 #include "mappers/MapperHud.h"
+#include "mappers/MapperInspect.h"
 #include "mappers/PsProfiles.h"
 #include "utils/MapperPs4Pad.h"
 
@@ -28,7 +29,7 @@ std::shared_ptr<MapperController> MapperController::getInstance(void)
 }
 
 MapperController::MapperController(void)
-    : _mappers(4, NULL)
+    : _mappers(5, NULL)  //TODO: eeeevil magic number
 //,_nh("heini")
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
@@ -36,6 +37,7 @@ MapperController::MapperController(void)
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)]     = std::shared_ptr<MapperDrive>(new MapperDrive(_nh));
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE_REV)] = std::shared_ptr<MapperDriveReverse>(new MapperDriveReverse(_nh));
   _mappers[static_cast<unsigned int>(IMapper::RemoteType::HUD)]       = std::shared_ptr<MapperHud>(new MapperHud());
+  _mappers[static_cast<unsigned int>(IMapper::RemoteType::INSPECT)]       = std::shared_ptr<MapperInspect>(new MapperInspect());
   const IMapper::RemoteType typeDrive                                 = IMapper::RemoteType::DRIVE;
   //  this->switchMapper(IMapper::RemoteType::DRIVE);
   _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::DRIVE)];
@@ -152,6 +154,13 @@ bool MapperController::switchMapper(const IMapper::RemoteType& type, const bool 
     Hud::getInstance()->showMenu(true);
     _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::HUD)];
     //_mapper->setReset();
+    break;
+  }
+  case IMapper::RemoteType::INSPECT:
+  {
+    std::cout << __PRETTY_FUNCTION__ << " switch to inspect" << std::endl;
+    Hud::getInstance()->showMenu(false);
+    _mapper = _mappers[static_cast<unsigned int>(IMapper::RemoteType::INSPECT)];
     break;
   }
   default:

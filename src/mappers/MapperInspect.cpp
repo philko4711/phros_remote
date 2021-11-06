@@ -1,17 +1,34 @@
 #include "MapperInspect.h"
 #include <ohm_visca_control/viscaControl.h>
+#include "Hud.h"
+#include "MapperController.h"
 
 namespace phros_remote
 {
 MapperInspect::MapperInspect():
-_subsImgTele(std::make_unique<SuperImageSubscriber>("/tele_cam/image_rect")),
-_subsImgTotal(std::make_unique<SuperImageSubscriber>("/orbbec/overview"))
+_subsImgTele(std::make_unique<SuperImageSubscriber>("/tele_cam/image_rect", ros::Duration(1.0))),
+_subsImgTotal(std::make_unique<SuperImageSubscriber>("/orbbec/overview", ros::Duration(1.0)))
 {
 
 }
 
 void MapperInspect::map(std::shared_ptr<MapperPsPad>& msg)
 {
+  //toDo: this block is identically for all mappers. This should be in mapper base.
+   auto hud = Hud::getInstance();
+  hud->setArmActive(false);
+  if(_reset)
+  {
+    msg->reset();
+    _reset = false;
+    return;
+  }
+  if(msg->button(MapperPsPad::ButtonsPad::PS).edge() == StateButton::Edge::RISING)
+  {
+    MapperController::getInstance()->switchMapper(IMapper::RemoteType::HUD);
+    return;
+  }
+
   ohm_visca_control::viscaControl control_data;
   if(!msg->button(MapperPsPad::ButtonsPad::A1).state())
   {
@@ -61,7 +78,13 @@ void MapperInspect::map(std::shared_ptr<MapperPsPad>& msg)
   }
   control_data.header.stamp = ros::Time::now();
 }
-void MapperInspect::mapImage(void) {}
-void MapperInspect::init(void) {}
+void MapperInspect::mapImage(void) {
+   auto hud       = Hud::getInstance();
+   auto imageTele = _subsImgTele->data();
+   if(imageTele)
+    hud->setImageMain(imageTele);
+
+}
+//void MapperInspect::init(void) {}
 
 } // namespace phros_remote

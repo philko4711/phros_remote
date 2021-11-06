@@ -88,6 +88,7 @@ SET(SRCS_REMOTE src/RemotePlugin.cpp
 				src/mappers/MapperDrive.cpp
 				src/mappers/MapperDriveReverse.cpp
         src/mappers/MapperHud.cpp
+        src/mappers/MapperInspect.cpp
 				src/gui/menu/MenuItemBase.cpp
 				src/gui/menu/MenuItemModeArm.cpp
 				src/gui/menu/MenuItemModeDrive.cpp

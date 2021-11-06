@@ -44,7 +44,7 @@ Hud::Hud():
                     _actionTriggered(false),
                     _reverseMode(false),
                     _armActive(false),
-                    _iconsConst(6, nullptr),
+                    _iconsConst(7, nullptr),    //Todo: eeeevil magic number
                     _guiUi(std::unique_ptr<Ui::HudMain>(new Ui::HudMain))
 {
   std::cout << __PRETTY_FUNCTION__ << "call" << std::endl;
@@ -82,6 +82,9 @@ Hud::Hud():
     _iconsConst[static_cast<unsigned int>(IconsConst::YOU_SHALL_NOT_PASS)] =  std::shared_ptr<QImage>(new QImage(image));
   else
       std::cout << __PRETTY_FUNCTION__ << "error5" << std::endl;
+      if(image.load(":/menu_icons/inspection.png"))
+    _iconsConst[static_cast<unsigned int>(IconsConst::REMOTE_INSPECT)] =  std::shared_ptr<QImage>(new QImage(image));
+
 
   this->initMenu(false, false);
   std::cout << __PRETTY_FUNCTION__ << "exit" << std::endl;
@@ -104,7 +107,7 @@ void Hud::initMenu(const bool serviceFlipperPresent, const bool serviceHornsPres
   _menu = new MenuItemModeDrive(":/menu_icons/drive.png");//   new MenuItemModeDrive(":/menu_icons/drive.png"));
   _menu->init(new MenuItemModeDriveReverse(":/menu_icons/drive_rev.png"));
   _menu->pushBack(new MenuItemModeArm(":/menu_icons/arm.png"), _menu);
-  _menu->pushBack(new MenuItemModeInspect(":/menu_icons/inspect.png"), _menu);
+  _menu->pushBack(new MenuItemModeInspect(":/menu_icons/inspection.png"), _menu);
   
 
   IMenuItem* flipperItem = new MenuItemFlipperFlat(":/menu_icons/flat.png");
@@ -333,6 +336,11 @@ void Hud::setCurrentProfile(const IMapper::RemoteType& type)
   case IMapper::RemoteType::ARM:
   {
     _guiUi->widget->setIconMode(_iconsConst[static_cast<unsigned int>(IconsConst::REMOTE_ARM)]);
+    break;
+  }
+  case IMapper::RemoteType::INSPECT:
+  {
+    _guiUi->widget->setIconMode(_iconsConst[static_cast<unsigned int>(IconsConst::REMOTE_INSPECT)]);
     break;
   }
   default:

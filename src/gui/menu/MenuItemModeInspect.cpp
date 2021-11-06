@@ -27,8 +27,7 @@ bool MenuItemModeInspect::action(void)
 {
   MenuItemBase::displayActionTriggered(true);
   auto mapperController = MapperController::getInstance();
-  //const bool retval = mapperController->switchMapper(phros_remote::IMapper::RemoteType::DRIVE);
-  const bool retval = false;
+  const bool retval = mapperController->switchMapper(phros_remote::IMapper::RemoteType::INSPECT);
   MenuItemBase::displayActionTriggered(!retval);
   return retval;
 }
