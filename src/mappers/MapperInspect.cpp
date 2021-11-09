@@ -7,8 +7,8 @@
 namespace phros_remote
 {
 MapperInspect::MapperInspect()
-    : _subsImgTele(std::make_unique<SuperImageSubscriber>("/tele_cam/image_rect", ros::Duration(1.0)))
-    , _subsImgTotal(std::make_unique<SuperImageSubscriber>("/orbbec/overview", ros::Duration(1.0)))
+    : _subsImgTele (std::unique_ptr<SuperImageSubscriber>(new SuperImageSubscriber("/tele_cam/image_rect", ros::Duration(1.0))))
+    , _subsImgTotal(std::unique_ptr<SuperImageSubscriber>(new SuperImageSubscriber("/orbbec/overview", ros::Duration(1.0))))
 {
   ros::NodeHandle nh;
   ros::NodeHandle prvNh("~");
